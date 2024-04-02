@@ -1,0 +1,27 @@
+[
+{
+    "name":"THANKS",
+    "euro":0,
+    "approverLevel":"NONE"
+},
+{
+    "name":"BRONZE",
+    "euro":20,
+    "approverLevel":"DEPARTMENT_MANAGER"
+},
+{
+    "name":"SILVER",
+    "euro":50,
+    "approverLevel":"DEPARTMENT_MANAGER"
+},
+{
+    "name":"GOLD",
+    "euro":100,
+    "approverLevel":"DEPARTMENT_MANAGER"
+},
+{
+	"name":"PLATINUM",
+    "euro":250,
+    "approverLevel":"PLANT_MANAGER"
+}
+]

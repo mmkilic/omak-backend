@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import mmk.omak.entity.User;
+import mmk.omak.enums.Departments;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer>{
@@ -20,11 +21,17 @@ public interface UserRepository extends JpaRepository<User, Integer>{
 	Optional<User> getManager(@Param("userId") int userId);
 	
 	@Query("SELECT u from User u where u.enabled=true")
-	List<User> getActiveUsers();
+	List<User> getActives();
 	
 	@Query("SELECT u from User u where u.manager.email=(:managerEmail)")
 	List<User> getSubordinates(@Param("managerEmail") String managerEmail);
 	
 	@Query("SELECT u from User u where u.enabled=false and u.accountNonLocked=true")
 	List<User> inVerification();
+	
+	@Query("SELECT u from User u where u.department=(:dapartment)")
+	List<User> getByDepartment(@Param("dapartment") Departments dapartment);
+	
+	@Query("SELECT u from User u where u.role!=TEAM_MEMBER and u.role!=NONE")
+	List<User> getManagers();
 }

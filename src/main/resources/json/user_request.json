@@ -1,0 +1,47 @@
+[
+{
+    "email":"abhilash.mishra@green-transfo.com",
+    "name":"Abhilash",
+    "surname":"MISHRA",
+    "password":"rnr123",
+    "authorities":["ADM", "RPT"],
+    "department":"PLANT_MANAGEMENT",
+    "managerEmail":""
+},
+{
+    "email":"abhilash.mishra@green-transfo.com",
+    "name":"Abhilash",
+    "surname":"MISHRA",
+    "password":"rnr123",
+    "authorities":["ADM", "RPT"],
+    "department":"PLANT_MANAGEMENT",
+    "managerEmail":""
+},
+{
+    "email":"abhilash.mishra@green-transfo.com",
+    "name":"Abhilash",
+    "surname":"MISHRA",
+    "password":"rnr123",
+    "authorities":["ADM", "RPT"],
+    "department":"PLANT_MANAGEMENT",
+    "managerEmail":""
+},
+{
+    "email":"abhilash.mishra@green-transfo.com",
+    "name":"Abhilash",
+    "surname":"MISHRA",
+    "password":"rnr123",
+    "authorities":["ADM", "RPT"],
+    "department":"PLANT_MANAGEMENT",
+    "managerEmail":""
+},
+{
+    "email":"abhilash.mishra@green-transfo.com",
+    "name":"Abhilash",
+    "surname":"MISHRA",
+    "password":"rnr123",
+    "authorities":["ADM", "RPT"],
+    "department":"PLANT_MANAGEMENT",
+    "managerEmail":""
+}
+]

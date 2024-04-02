@@ -1,0 +1,10 @@
+[
+{
+    "id":10001,
+    "status":"REDEEMED"
+},
+{
+    "id":10002,
+    "status":"CANCELED"
+}
+]

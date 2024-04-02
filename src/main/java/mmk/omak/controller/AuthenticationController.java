@@ -4,6 +4,9 @@ import java.io.IOException;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,6 +14,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import mmk.omak.entity.User;
+import mmk.omak.entity.request.ChangePasswdRequest;
+import mmk.omak.entity.request.LoginRequest;
+import mmk.omak.entity.request.RegisterRequest;
+import mmk.omak.entity.response.LoginResponse;
 import mmk.omak.service.AuthenticationService;
 
 @RestController
@@ -29,12 +36,7 @@ public class AuthenticationController {
 	  return ResponseEntity.ok(authService.validation(request));
 	}
 	
-	@GetMapping("/hello")
-	public String hello() {
-	  return "hello";
-	}
 	
-	/*
 	@PostMapping("/register")
 	public ResponseEntity<String> register(@RequestBody RegisterRequest request) {
 	  return authService.register(request);
@@ -49,5 +51,4 @@ public class AuthenticationController {
     public ResponseEntity<LoginResponse> changePassword(@RequestBody ChangePasswdRequest request) {
         return ResponseEntity.ok(authService.changePassword(request));
     }
-	*/
 }

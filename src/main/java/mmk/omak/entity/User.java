@@ -24,6 +24,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import mmk.omak.enums.Authorities;
+import mmk.omak.enums.Departments;
 
 @Entity
 @Table
@@ -58,6 +59,8 @@ public class User implements UserDetails{
 	private LocalDateTime dateCreated;
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime dateDeactivated;
+	
+	private Departments department = Departments.NONE;
 	
 	@JoinColumn(name="manager_id")
 	@JsonIgnore

@@ -1,0 +1,30 @@
+[
+{
+    "price":0,
+    "name":"Multinet",
+    "currency":{
+    	"code":"TRY"
+    }
+},
+{
+    "price":100,
+    "name":"Boyner",
+    "currency":{
+    	"code":"TRY"
+    }
+},
+{
+    "price":250,
+    "name":"Teknosa",
+    "currency":{
+    	"code":"TRY"
+    }
+},
+{
+    "price":50,
+    "name":"PPP",
+    "currency":{
+    	"code":"PLN"
+    }
+}
+]

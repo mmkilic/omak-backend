@@ -20,7 +20,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import mmk.omak.auth.JwtService;
 import mmk.omak.entity.User;
+import mmk.omak.entity.request.ChangePasswdRequest;
+import mmk.omak.entity.request.LoginRequest;
+import mmk.omak.entity.request.RegisterRequest;
+import mmk.omak.entity.response.LoginResponse;
 import mmk.omak.enums.Authorities;
+import mmk.omak.exception.UnauthorizedUserException;
 import mmk.omak.repostory.UserRepository;
 
 @Service
@@ -66,22 +71,16 @@ public class AuthenticationService {
 		
 		return user;
 	}
-
 	
-	/*
 	public ResponseEntity<String> register(RegisterRequest request) {
-		if (!request.getEmail().substring(request.getEmail().indexOf("@")+1).equals("green-transfo.com")) {
-            throw new IllegalStateException("Only Green transfo domain is acceptable.");
-        }
+		if(!request.getEmail().contains("@") || !request.getEmail().endsWith(".com") || request.getEmail().contains(" "))
+			throw new RuntimeException("Incorrect mail adress");
 		if (request.getPassword().length() < 6) {
             throw new IllegalStateException("Password should be longer than 6 digits.");
         }
 		if (!request.getPassword().equals(request.getConfirmationPassword())) {
             throw new IllegalStateException("Password are not the same.");
         }
-		
-		var manager = userRepository.getUserByEmail(request.getManagerEmail())
-									.orElse(null);
 		
 		var user = new User();
 		user.setEmail(request.getEmail());
@@ -93,10 +92,7 @@ public class AuthenticationService {
 		user.setAccountNonExpired(true);
 		user.setAccountNonLocked(true);
 		user.setCredentialsNonExpired(true);
-		user.setRegion(request.getRegion());
 		user.setAuthorities(Collections.singleton(Authorities.NONE));
-		user.setPhoneNumber(request.getPhoneNumber());
-	    
 		userRepository.save(user);
 	    
 	    return new ResponseEntity<String>("Your registration request has been received and "
@@ -155,5 +151,4 @@ public class AuthenticationService {
         		.password(request.getNewPassword())
         		.build());
     }
-*/
 }

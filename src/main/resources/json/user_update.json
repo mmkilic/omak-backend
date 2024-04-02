@@ -1,0 +1,162 @@
+[
+{
+    "email":"abhilash.mishra@green-transfo.com",
+    "authorities":["RPT"],
+    "role":"PLANT_MANAGER"
+},
+{
+    "email":"ufuk.dogan@green-transfo.com",
+    "authorities":["ADM", "RPT"],
+    "role":"DEPARTMENT_MANAGER"
+},
+{
+    "email":"erhan.oren@green-transfo.com",
+    "authorities":["RPT"],
+    "role":"DEPARTMENT_MANAGER"
+},
+{
+    "email":"asli.tezcanoglu@green-transfo.com",
+    "authorities":["ADM", "RPT", "HR"],
+    "role":"DEPARTMENT_MANAGER"
+},
+{
+    "email":"arda.hosgor@green-transfo.com",
+    "authorities":["RPT"],
+    "role":"DEPARTMENT_MANAGER"
+},
+{
+    "email":"ilker.ozdemir@green-transfo.com",
+    "authorities":["RPT"],
+    "role":"DEPARTMENT_MANAGER"
+},
+{
+    "email":"mohamed.mesbah@green-transfo.com",
+    "authorities":["RPT"],
+    "role":"DEPARTMENT_MANAGER"
+},
+{
+    "email":"efgan.aykac@green-transfo.com",
+    "authorities":["RPT"],
+    "role":"DEPARTMENT_MANAGER"
+},
+{
+    "email":"tayfun.isler@green-transfo.com",
+    "authorities":["RPT"],
+    "role":"DEPARTMENT_MANAGER"
+},
+{
+    "email":"yigit.kaynar@green-transfo.com",
+    "authorities":["RPT"],
+    "role":"DEPARTMENT_MANAGER"
+},
+{
+    "email":"erdinc.keskin@green-transfo.com",
+    "authorities":["NONE"],
+    "role":"TEAM_MANAGER"
+},
+{
+    "email":"can.cetin@green-transfo.com",
+    "authorities":["NONE"],
+    "role":"TEAM_MANAGER"
+},
+{
+    "email":"oguzhan.karasu@green-transfo.com",
+    "authorities":["NONE"],
+    "role":"TEAM_MANAGER"
+},
+{
+    "email":"mehmet.kilic@green-transfo.com",
+    "authorities":["ADM", "RPT", "HR"],
+    "role":"TEAM_MANAGER"
+},
+{
+    "email":"hakan.sevil@green-transfo.com",
+    "authorities":["NONE"],
+    "role":"TEAM_MANAGER"
+},
+{
+    "email":"faruk.kanar@green-transfo.com",
+    "authorities":["NONE"],
+    "role":"TEAM_MANAGER"
+},
+{
+    "email":"aytekin.demirkiran@green-transfo.com",
+    "authorities":["NONE"],
+    "role":"TEAM_MANAGER"
+},
+{
+    "email":"fevziye.akdikmen@green-transfo.com",
+    "authorities":["NONE"],
+    "role":"TEAM_MANAGER"
+},
+{
+    "email":"salih.aytekin@green-transfo.com",
+    "authorities":["NONE"],
+    "role":"TEAM_MANAGER"
+},
+{
+    "email":"murat.araz@green-transfo.com",
+    "authorities":["NONE"],
+    "role":"TEAM_MANAGER"
+},
+{
+    "email":"ozgen.battal@green-transfo.com",
+    "authorities":["NONE"],
+    "role":"TEAM_MANAGER"
+},
+{
+    "email":"gorkem.yilmaz@green-transfo.com",
+    "authorities":["NONE"],
+    "role":"TEAM_MANAGER"
+},
+{
+    "email":"ozkan.altan@green-transfo.com",
+    "authorities":["NONE"],
+    "role":"TEAM_MANAGER"
+},
+{
+    "email":"onur.ozturk@green-transfo.com",
+    "authorities":["NONE"],
+    "role":"TEAM_MANAGER"
+},
+{
+    "email":"berk.gokcen@green-transfo.com",
+    "authorities":["NONE"],
+    "role":"TEAM_MANAGER"
+},
+{
+    "email":"mert.aytac@green-transfo.com",
+    "authorities":["NONE"],
+    "role":"TEAM_MANAGER"
+},
+{
+    "email":"yagmur.ucak@green-transfo.com",
+    "authorities":["NONE"],
+    "role":"TEAM_MANAGER"
+},
+{
+    "email":"benan.ogut@green-transfo.com",
+    "authorities":["NONE"],
+    "role":"TEAM_MANAGER"
+},
+{
+    "email":"bengisu.ihtiyar@green-transfo.com",
+    "authorities":["ADM", "RPT", "HR"],
+    "role":"TEAM_MEMBER"
+},
+{
+    "email":"yakup.yavuz@green-transfo.com",
+    "authorities":["ADM", "RPT", "HR"],
+    "role":"TEAM_MEMBER"
+},
+{
+    "email":"merve.ozbay@green-transfo.com",
+    "authorities":["ADM", "RPT", "HR"],
+    "role":"TEAM_MEMBER"
+},
+{
+    "email":"demet.okta@green-transfo.com",
+    "authorities":["ADM", "RPT", "HR"],
+    "role":"TEAM_MEMBER"
+}
+]
