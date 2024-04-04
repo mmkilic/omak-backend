@@ -9,7 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import mmk.omak.enums.Authorities;
-import mmk.omak.enums.Departments;
+import mmk.omak.enums.Types;
 
 @Data
 @Builder
@@ -26,7 +26,7 @@ public class UserRequest {
 	private Set<Authorities> authorities;
 	@Builder.Default
 	@Enumerated(EnumType.STRING)
-	private Departments department = Departments.NONE;
+	private Types type = Types.NONE;
 	private String managerEmail;
 	
 }

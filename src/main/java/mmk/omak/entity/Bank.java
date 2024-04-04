@@ -7,13 +7,11 @@ import lombok.Data;
 @Entity
 @Table
 @Data
-public class Address {
+public class Bank {
 	
 	private long id;
-	private String address;
-	private String district;
-	private String city;
-	private String country;
-	private int postCode;
+	private String name;
+	private String iban;
+	private String unit;
 	
 }

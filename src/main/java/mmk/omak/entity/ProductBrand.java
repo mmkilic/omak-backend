@@ -1,10 +1,9 @@
 package mmk.omak.entity;
 
-import java.time.LocalDateTime;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Data;
+import mmk.omak.enums.Origins;
 
 @Entity
 @Table
@@ -13,6 +12,6 @@ public class ProductBrand {
 	
 	private long id;
 	private String name;
-	private LocalDateTime dateCreated;
+	private Origins origin;
 	
 }

@@ -14,8 +14,10 @@ public class Contact {
 	private long id;
 	private String name;
 	private String surname;
+	private String title;
 	private String mail;
 	private String phoneNumber;
 	private LocalDateTime dateCreated;
+	private boolean keyContact;
 	
 }

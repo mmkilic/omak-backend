@@ -10,13 +10,13 @@ import lombok.Data;
 @Entity
 @Table
 @Data
-public class Case {
+public class ProductSupplier {
 	
 	private long id;
-	private List<Offer> offers;
-	private List<Order> orders;
-	private User salesman;
+	private String name;
 	private LocalDateTime dateCreated;
-	
+	private List<Contact> contacts;
+	private Address address;
+	private List<Bank> banks;
 	
 }

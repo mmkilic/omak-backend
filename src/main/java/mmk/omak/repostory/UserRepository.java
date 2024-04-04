@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import mmk.omak.entity.User;
-import mmk.omak.enums.Departments;
+import mmk.omak.enums.Types;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer>{
@@ -30,7 +30,7 @@ public interface UserRepository extends JpaRepository<User, Integer>{
 	List<User> inVerification();
 	
 	@Query("SELECT u from User u where u.department=(:dapartment)")
-	List<User> getByDepartment(@Param("dapartment") Departments dapartment);
+	List<User> getByDepartment(@Param("dapartment") Types dapartment);
 	
 	@Query("SELECT u from User u where u.role!=TEAM_MEMBER and u.role!=NONE")
 	List<User> getManagers();

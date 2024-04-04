@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import jakarta.persistence.EntityNotFoundException;
 import mmk.omak.entity.User;
 import mmk.omak.entity.request.UserRequest;
-import mmk.omak.enums.Departments;
+import mmk.omak.enums.Types;
 import mmk.omak.exception.BadRequestException;
 import mmk.omak.repostory.UserRepository;
 
@@ -53,7 +53,7 @@ public class UserService implements UserDetailsService{
 	public List<User> getManagers() {
 		return userRepo.getManagers();
 	}
-	public List<User> getByDepartment(Departments department) {
+	public List<User> getByDepartment(Types department) {
 		return userRepo.getByDepartment(department);
 	}
 	public List<User> getUserAndManagers(int id) {
@@ -80,7 +80,7 @@ public class UserService implements UserDetailsService{
 		var user = new User();
 		user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
 		user.setAuthorities(userRequest.getAuthorities());
-		user.setDepartment(userRequest.getDepartment());
+		user.setType(userRequest.getType());
 		user.setEmail(userRequest.getEmail());
 		user.setName(userRequest.getName());
 		user.setSurname(userRequest.getSurname());
