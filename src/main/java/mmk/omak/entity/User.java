@@ -1,7 +1,8 @@
 package mmk.omak.entity;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,8 +17,6 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -53,6 +52,7 @@ public class User implements UserDetails{
 	private boolean credentialsNonExpired;
 	@Enumerated(EnumType.STRING)
 	private Set<Authorities> authorities;
+	private Types type = Types.NONE;
 	
 	//Date
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
@@ -60,33 +60,24 @@ public class User implements UserDetails{
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime dateDeactivated;
 	
-	private Types type = Types.NONE;
 	
-	@JoinColumn(name="manager_id")
 	@JsonIgnore
-	@ManyToOne
-	private User manager;
+	@OneToMany(mappedBy = "customerOwner")
+	private List<Customer> customers = new ArrayList<Customer>();
 	@JsonIgnore
-    @OneToMany(mappedBy="manager")
-	private Set<User> subordinates = new HashSet<User>();
+	@OneToMany(mappedBy = "salesman")
+	private List<Opportunity> opportunities = new ArrayList<Opportunity>();
+	@JsonIgnore
+	@OneToMany(mappedBy = "salesman")
+	private List<SalesOrder> salesOrders = new ArrayList<SalesOrder>();
+	@JsonIgnore
+	@OneToMany(mappedBy = "salesman")
+	private List<Offer> offers = new ArrayList<Offer>();
+	
+	
 	
 	public String getFullName() {
 		return name + " " + surname;
-	}
-	public int getManagerId() {
-		if(manager != null)
-			return manager.getId();
-		return 0;
-	}
-	public String getManagerFullName() {
-		if(manager != null)
-			return manager.getFullName();
-		return "";
-	}
-	public String getManagerEmail() {
-		if(manager != null)
-			return manager.getEmail();
-		return "";
 	}
 	
 	@JsonIgnore

@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import mmk.omak.entity.User;
@@ -27,10 +26,6 @@ public class UserController {
 	@GetMapping("/all")
 	public List<User> getAllUsers() {
 		return userService.getAll();
-	}
-	@GetMapping("/subordinates")
-	public List<User> getSubordinates(@RequestParam String managerEmail) {
-		return userService.getSubordinates(managerEmail);
 	}
 	@GetMapping(path = "/verification")
 	public List<User> inVerification() {

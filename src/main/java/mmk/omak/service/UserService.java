@@ -1,7 +1,6 @@
 package mmk.omak.service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Service;
 import jakarta.persistence.EntityNotFoundException;
 import mmk.omak.entity.User;
 import mmk.omak.entity.request.UserRequest;
-import mmk.omak.enums.Types;
 import mmk.omak.exception.BadRequestException;
 import mmk.omak.repostory.UserRepository;
 
@@ -36,7 +34,7 @@ public class UserService implements UserDetailsService{
 		return userRepo.findById(id).orElseThrow(() -> new BadRequestException("User with id " +id+ " not found."));
 	}
 	public User getByEmail(String email) {
-		return userRepo.getUserByEmail(email).orElseThrow(() -> new BadRequestException("User with email " +email+ " not found."));
+		return userRepo.getByEmail(email).orElseThrow(() -> new BadRequestException("User with email " +email+ " not found."));
 	}
 	public List<User> getAll() {
 		return userRepo.findAll();
@@ -44,28 +42,8 @@ public class UserService implements UserDetailsService{
 	public List<User> getActives() {
 		return userRepo.getActives();
 	}
-	public List<User> getSubordinates(String managerEmail) {
-		return userRepo.getSubordinates(managerEmail);
-	}
 	public List<User> inVerification() {
 		return userRepo.inVerification();
-	}
-	public List<User> getManagers() {
-		return userRepo.getManagers();
-	}
-	public List<User> getByDepartment(Types department) {
-		return userRepo.getByDepartment(department);
-	}
-	public List<User> getUserAndManagers(int id) {
-		var user = userRepo.findById(id).orElseThrow(() -> new BadRequestException("User with id " +id+ " not found."));
-		var resultList = new ArrayList<User>();
-		resultList.add(user);
-		User manager = user.getManager();
-		while(manager != null) {
-			resultList.add(manager);
-			manager = manager.getManager();
-		}
-		return resultList;
 	}
 	
 	
@@ -89,8 +67,6 @@ public class UserService implements UserDetailsService{
 		user.setAccountNonExpired(true);
 		user.setCredentialsNonExpired(true);
 		user.setDateCreated(LocalDateTime.now());
-		if(userRequest.getManagerEmail() != null && !userRequest.getManagerEmail().isBlank())
-			user.setManager(getByEmail(userRequest.getManagerEmail()));
 		
 		return userRepo.save(user);
 	}
@@ -98,7 +74,7 @@ public class UserService implements UserDetailsService{
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		return userRepo.getUserByEmail(username).orElseThrow(EntityNotFoundException::new);
+		return userRepo.getByEmail(username).orElseThrow(EntityNotFoundException::new);
 	}
 	
 	

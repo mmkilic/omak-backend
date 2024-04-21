@@ -7,12 +7,13 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
@@ -20,37 +21,27 @@ import lombok.Data;
 @Entity
 @Table
 @Data
-public class Customer {
+public class Supplier {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	private String code;
 	private String name;
-	@Column(unique = true)
-	private String taxId;
-	private String phoneNumber;
-	private String mail;
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime dateCreated;
 	
 	
-	@ManyToOne
-	private User customerOwner;
-	
-	
 	@JsonIgnore
-	@OneToMany(mappedBy = "customer")
+	@OneToMany(mappedBy = "supplier")
 	private List<Contact> contacts = new ArrayList<Contact>();
 	@JsonIgnore
-	@OneToMany(mappedBy = "customer")
+	@OneToMany(mappedBy = "supplier")
 	private List<Address> addresses = new ArrayList<Address>();
+	
+	
 	@JsonIgnore
-	@OneToMany(mappedBy = "customer")
-	private List<Opportunity> opportunities = new ArrayList<Opportunity>();
-	@JsonIgnore
-	@OneToMany(mappedBy = "customer")
-	private List<SalesOrder> salesOrders = new ArrayList<SalesOrder>();
-	@JsonIgnore
-	@OneToMany(mappedBy = "customer")
-	private List<Offer> offers = new ArrayList<Offer>();
+	@ManyToMany
+	@JoinTable(name = "product_supplier_join", 
+			  joinColumns = @JoinColumn(name = "supplier_id"), 
+			  inverseJoinColumns = @JoinColumn(name = "product_id"))
+	private List<Product> products = new ArrayList<Product>();
 }

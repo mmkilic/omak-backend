@@ -8,21 +8,21 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+import lombok.AccessLevel;
 import lombok.Data;
-import mmk.omak.enums.OfferStatus;
+import lombok.Setter;
 
 @Entity
 @Table
 @Data
-public class Offer {
+public class SalesOrder {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
@@ -30,8 +30,12 @@ public class Offer {
 	private double taxAmount;
 	private double amount;
 	private double totalAmount;
-	@Enumerated(EnumType.STRING)
-	private OfferStatus status;
+	@Transient
+	@Setter(AccessLevel.NONE)
+	private double deliveryPercentage;
+	@Transient
+	@Setter(AccessLevel.NONE)
+	private double receivingPercentage;
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime dateCreated;
 	
@@ -39,14 +43,27 @@ public class Offer {
 	@ManyToOne
 	private Opportunity opportunity;
 	@ManyToOne
+	private Currency currency;
+	@ManyToOne
 	private Customer customer;
 	@ManyToOne
 	private User salesman;
-	@ManyToOne
-	private Currency currency;
 	
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "offer")
-	private List<Line> offerlines = new ArrayList<Line>();
+	@OneToMany(mappedBy = "salesOrder")
+	private List<Line> orderlines = new ArrayList<Line>();
+	
+	
+	public double getRecievingPercentage() {
+		if(orderlines == null || orderlines.isEmpty())
+			return 0;
+		return Math.round(100.0 * orderlines.stream().mapToInt(o -> o.getReveivingStatus().getValue()).sum() / (double) orderlines.size());
+	}
+	public double getDeliveryPercentage() {
+		if(orderlines == null || orderlines.isEmpty())
+			return 0;
+		return Math.round(100.0 * orderlines.stream().mapToInt(o -> o.getDeliveryStatus().getValue()).sum() / (double) orderlines.size());
+	}
+	
 }

@@ -47,7 +47,7 @@ public class AuthenticationService {
 		refreshToken = authHeader.substring(7);
 		userEmail = jwtService.extractUsername(refreshToken);
 		if (userEmail != null) {
-			var user = this.userRepository.getUserByEmail(userEmail).orElseThrow();
+			var user = this.userRepository.getByEmail(userEmail).orElseThrow();
 			if (jwtService.isTokenValid(refreshToken, user)) {
 				var accessToken = jwtService.generateToken(user);
 				new ObjectMapper().writeValue(response.getOutputStream(), accessToken);
@@ -64,7 +64,7 @@ public class AuthenticationService {
 		}
 		refreshToken = authHeader.substring(7);
 		userEmail = jwtService.extractUsername(refreshToken);
-		User user = this.userRepository.getUserByEmail(userEmail).orElseThrow(() -> new BadCredentialsException("Token - User conflict occurred."));
+		User user = this.userRepository.getByEmail(userEmail).orElseThrow(() -> new BadCredentialsException("Token - User conflict occurred."));
 		
 		if(!jwtService.isTokenValid(refreshToken, user))
 			throw new BadCredentialsException("Token is not valid.");
@@ -100,7 +100,7 @@ public class AuthenticationService {
 	}
 	
 	public LoginResponse login(LoginRequest request) {
-		var user = userRepository.getUserByEmail(request.getEmail())
+		var user = userRepository.getByEmail(request.getEmail())
 				.orElseThrow(() -> new BadCredentialsException("User name or password is incorrect."));
 		
 		if(!passwordEncoder.matches(request.getPassword(), user.getPassword()))
@@ -125,7 +125,7 @@ public class AuthenticationService {
 	}
 	
 	public LoginResponse changePassword(ChangePasswdRequest request) {
-        var user = userRepository.getUserByEmail(request.getEmail()).orElseThrow(() -> new UnauthorizedUserException("User is not available!"));
+        var user = userRepository.getByEmail(request.getEmail()).orElseThrow(() -> new UnauthorizedUserException("User is not available!"));
         
         if (!passwordEncoder.matches(request.getCurrentPassword(), user.getPassword())) {
             throw new IllegalStateException("Wrong password");
