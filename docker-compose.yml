@@ -1,0 +1,13 @@
+version: '3.3'
+
+services:
+  s_srv_crm_backend:
+    container_name: c_crm_backend
+    image: crm_backend
+    restart: always
+    networks:
+      - net-crm
+      
+networks:
+  net-crm:
+    name: net-crm

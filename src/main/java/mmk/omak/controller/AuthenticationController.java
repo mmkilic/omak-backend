@@ -27,6 +27,11 @@ public class AuthenticationController {
 	
 	private final AuthenticationService authService;
 	
+	
+	@GetMapping("/hello")
+	public String hello() {
+		return "Welcome to GMC-CRM application";
+	}
 	@GetMapping("/refresh-token")
 	public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		authService.refreshToken(request, response);
