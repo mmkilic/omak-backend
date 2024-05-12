@@ -42,32 +42,32 @@ public class UserService implements UserDetailsService{
 	public List<User> getActives() {
 		return userRepo.getActives();
 	}
-	public List<User> inVerification() {
-		return userRepo.inVerification();
-	}
-	
 	
 	
 	public User create(UserRequest userRequest) {
-		if(userRequest.getPassword().length() < 6 ) 
-			throw new BadRequestException("Password length is not engouh - " +userRequest.getName());
-		
-		if(!userRequest.getEmail().contains("@") || !userRequest.getEmail().endsWith(".com") || userRequest.getEmail().contains(" "))
-			throw new RuntimeException("Incorrect mail adress");
-		
 		var user = new User();
-		user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
-		user.setAuthorities(userRequest.getAuthorities());
-		user.setType(userRequest.getType());
-		user.setEmail(userRequest.getEmail());
-		user.setName(userRequest.getName());
-		user.setSurname(userRequest.getSurname());
+		user.update(userRequest);
 		user.setEnabled(true);
 		user.setAccountNonLocked(false);
 		user.setAccountNonExpired(true);
 		user.setCredentialsNonExpired(true);
 		user.setDateCreated(LocalDateTime.now());
-		
+		return userRepo.save(user);
+	}
+	
+	public User update(User userUpdate) {
+		var user = getById(userUpdate.getId());
+		user.update(userUpdate);
+		return userRepo.save(user);
+	}
+	
+	public User resetPassword(User user) {
+		user = getById(user.getId());
+		user.setPassword(passwordEncoder.encode("crm123"));
+		user.setEnabled(true);
+		user.setAccountNonLocked(false);
+		user.setAccountNonExpired(true);
+		user.setCredentialsNonExpired(true);
 		return userRepo.save(user);
 	}
 	

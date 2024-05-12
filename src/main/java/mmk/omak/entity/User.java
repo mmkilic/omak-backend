@@ -22,6 +22,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import mmk.omak.entity.request.UserRequest;
 import mmk.omak.enums.Authorities;
 import mmk.omak.enums.Types;
 
@@ -78,6 +79,32 @@ public class User implements UserDetails{
 	
 	public String getFullName() {
 		return name + " " + surname;
+	}
+	
+	public User update(UserRequest ur) {
+		this.setEmail(ur.getEmail());
+		this.setName(ur.getName());
+		this.setSurname(ur.getSurname());
+		this.setAuthorities(ur.getAuthorities());
+		this.setType(ur.getType());
+		return this;
+	}
+	public User update(User u) {
+		if(u.getEmail() != null && !u.getEmail().isBlank())
+			this.setEmail(u.getEmail());
+		if(u.getName() != null && !u.getName().isBlank())
+			this.setName(u.getName());
+		if(u.getSurname() != null && !u.getSurname().isBlank())
+			this.setSurname(u.getSurname());
+		this.setEnabled(u.isEnabled());
+		//this.setAccountNonExpired(u.isAccountNonExpired());
+		this.setAccountNonLocked(u.isAccountNonLocked());
+		//this.setCredentialsNonExpired(u.isCredentialsNonExpired());
+		if(u.getAuthorities() != null)
+			this.setAuthorities(u.getAuthorities());
+		if(u.getType() != null)
+			this.setType(u.getType());
+		return this;
 	}
 	
 	@JsonIgnore

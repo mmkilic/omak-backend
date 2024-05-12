@@ -1,0 +1,26 @@
+[
+{
+    "email":"murat@gmcendustriyel.com",
+    "name":"Murat",
+    "surname":"CELIK",
+    "password":"crm123",
+    "authorities":["ADM", "OPP", "PRD", "CST"],
+    "type":"EMPLOYEE"
+},
+{
+    "email":"mehmetkilic7@hotmail.com.tr",
+    "name":"Mehmet",
+    "surname":"KILIC",
+    "password":"crm123",
+    "authorities":["ADM", "OPP", "PRD", "CST"],
+    "type":"EMPLOYEE"
+},
+{
+    "email":"ozkan88altan@hotmail.com",
+    "name":"Ozkan",
+    "surname":"ALTAN",
+    "password":"crm123",
+    "authorities":["ADM", "OPP", "PRD", "CST"],
+    "type":"EMPLOYEE"
+}
+]

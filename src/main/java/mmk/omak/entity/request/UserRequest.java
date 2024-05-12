@@ -27,6 +27,5 @@ public class UserRequest {
 	@Builder.Default
 	@Enumerated(EnumType.STRING)
 	private Types type = Types.NONE;
-	private String managerEmail;
 	
 }

@@ -6,7 +6,8 @@ public enum Authorities implements GrantedAuthority{
 
 	NONE("NONE"),
 	ADM("ADMINISTRATOR"),
-	TND("TENDERING"),
+	OPP("OPPORTUNITY"),
+	PRD("PRODUCT"),
 	CST("CUSTOMER");
 
     private String value;

@@ -19,7 +19,4 @@ public interface UserRepository extends JpaRepository<User, Integer>{
 	@Query("SELECT u from User u where u.enabled=true")
 	List<User> getActives();
 	
-	@Query("SELECT u from User u where u.enabled=false and u.accountNonLocked=true")
-	List<User> inVerification();
-	
 }

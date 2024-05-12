@@ -5,8 +5,6 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -72,7 +70,7 @@ public class AuthenticationService {
 		return user;
 	}
 	
-	public ResponseEntity<String> register(RegisterRequest request) {
+	public String register(RegisterRequest request) {
 		if(!request.getEmail().contains("@") || !request.getEmail().endsWith(".com") || request.getEmail().contains(" "))
 			throw new RuntimeException("Incorrect mail adress");
 		if (request.getPassword().length() < 6) {
@@ -95,8 +93,7 @@ public class AuthenticationService {
 		user.setAuthorities(Collections.singleton(Authorities.NONE));
 		userRepository.save(user);
 	    
-	    return new ResponseEntity<String>("Your registration request has been received and "
-	    		+ "system administrators have been informed.", HttpStatus.OK);
+	    return "Kayıt talebiniz alınmıştır ve sistem yöneticisine onay için yönlendirilmiştir.";
 	}
 	
 	public LoginResponse login(LoginRequest request) {
@@ -127,21 +124,18 @@ public class AuthenticationService {
 	public LoginResponse changePassword(ChangePasswdRequest request) {
         var user = userRepository.getByEmail(request.getEmail()).orElseThrow(() -> new UnauthorizedUserException("User is not available!"));
         
-        if (!passwordEncoder.matches(request.getCurrentPassword(), user.getPassword())) {
+        if (!passwordEncoder.matches(request.getCurrentPassword(), user.getPassword()))
             throw new IllegalStateException("Wrong password");
-        }
         
-        if (passwordEncoder.matches(request.getNewPassword(), user.getPassword())) {
+        if (passwordEncoder.matches(request.getNewPassword(), user.getPassword()))
             throw new IllegalStateException("New password should be different than current password.");
-        }
         
-        if (request.getNewPassword().length() < 6) {
+        if (request.getNewPassword().length() < 6)
             throw new IllegalStateException("Password should be longer than 6 digits.");
-        }
         
-        if (!request.getNewPassword().equals(request.getConfirmationPassword())) {
+        if (!request.getNewPassword().equals(request.getConfirmationPassword()))
             throw new IllegalStateException("Password are not the same");
-        }
+        
         user.setPassword(passwordEncoder.encode(request.getNewPassword()));
         user.setAccountNonLocked(true);
         userRepository.save(user);

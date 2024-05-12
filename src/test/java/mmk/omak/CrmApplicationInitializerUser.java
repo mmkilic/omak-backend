@@ -18,7 +18,7 @@ import mmk.omak.entity.request.UserRequest;
 import mmk.omak.service.UserService;
 
 @SpringBootTest
-class CrmApplicationTestsInitializer {
+class CrmApplicationInitializerUser {
 	
 	private ObjectMapper mapper;
 	@Autowired
@@ -32,7 +32,7 @@ class CrmApplicationTestsInitializer {
 				.addModule(new JavaTimeModule())
 				.build();
 		
-		initUser("/json/user_request.json");
+		initUser("/json/userRequest.json");
 	}
 	
 	void initUser(String file) {

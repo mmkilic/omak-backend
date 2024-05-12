@@ -2,7 +2,6 @@ package mmk.omak.controller;
 
 import java.io.IOException;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,23 +36,23 @@ public class AuthenticationController {
 		authService.refreshToken(request, response);
 	}
 	@GetMapping("/validation")
-	public ResponseEntity<User> validation(HttpServletRequest request) {
-	  return ResponseEntity.ok(authService.validation(request));
+	public User validation(HttpServletRequest request) {
+	  return authService.validation(request);
 	}
 	
 	
 	@PostMapping("/register")
-	public ResponseEntity<String> register(@RequestBody RegisterRequest request) {
+	public String register(@RequestBody RegisterRequest request) {
 	  return authService.register(request);
 	}
 	@PostMapping("/login")
-	public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
-	  return ResponseEntity.ok(authService.login(request));
+	public LoginResponse login(@RequestBody LoginRequest request) {
+	  return authService.login(request);
 	}
 	
 	
 	@PatchMapping("/change")
-    public ResponseEntity<LoginResponse> changePassword(@RequestBody ChangePasswdRequest request) {
-        return ResponseEntity.ok(authService.changePassword(request));
+    public LoginResponse changePassword(@RequestBody ChangePasswdRequest request) {
+        return authService.changePassword(request);
     }
 }
