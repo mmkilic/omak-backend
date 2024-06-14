@@ -1,44 +1,26 @@
 [
 {
-    "code":"TRY",
-    "name":"Turkish lira",
-    "symbol":"₺",
-    "exchangeByEuro":35.0
-},
-{
-    "code":"PLN",
-    "name":"Polish złoty",
-    "symbol":"zł",
-    "exchangeByEuro":1.0
-},
-{
-    "code":"GBP",
-    "name":"Pound sterling",
-    "symbol":"£",
-    "exchangeByEuro":1.0
-},
-{
     "code":"EUR",
     "name":"Euro",
     "symbol":"€",
     "exchangeByEuro":1.0
 },
 {
-    "code":"INR",
-    "name":"Indian rupee",
-    "symbol":"₹",
-    "exchangeByEuro":1.0
+    "code":"TRY",
+    "name":"Turkish lira",
+    "symbol":"₺",
+    "exchangeByEuro":34.99
 },
 {
-    "code":"CNY",
-    "name":"Renminbi",
-    "symbol":"¥",
-    "exchangeByEuro":1.0
+    "code":"USD",
+    "name":"US Dollar",
+    "symbol":"$",
+    "exchangeByEuro":1.08
 },
 {
-    "code":"AED",
-    "name":"United Arab Emirates dirham",
-    "symbol":"Dh",
-    "exchangeByEuro":1.0
+    "code":"GBP",
+    "name":"Pound sterling",
+    "symbol":"£",
+    "exchangeByEuro":0.85
 }
 ]

@@ -15,24 +15,30 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.TableGenerator;
 import lombok.Data;
 
 @Entity
 @Table
+@TableGenerator(name="tab", initialValue=1_000, allocationSize=1)
 @Data
 public class Customer {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-	private String code;
-	private String name;
+	@GeneratedValue(strategy = GenerationType.TABLE, generator="tab")
+	private int id;
 	@Column(unique = true)
-	private String taxId;
+	private String name;
 	private String phoneNumber;
-	private String mail;
+	private String email;
+	
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime dateCreated;
 	
+	private String address;
+	private String district;
+	private String city;
+	private String country;
+	private int postCode;
 	
 	@ManyToOne
 	private User customerOwner;
@@ -43,9 +49,6 @@ public class Customer {
 	private List<Contact> contacts = new ArrayList<Contact>();
 	@JsonIgnore
 	@OneToMany(mappedBy = "customer")
-	private List<Address> addresses = new ArrayList<Address>();
-	@JsonIgnore
-	@OneToMany(mappedBy = "customer")
 	private List<Opportunity> opportunities = new ArrayList<Opportunity>();
 	@JsonIgnore
 	@OneToMany(mappedBy = "customer")
@@ -53,4 +56,13 @@ public class Customer {
 	@JsonIgnore
 	@OneToMany(mappedBy = "customer")
 	private List<Offer> offers = new ArrayList<Offer>();
+	
+	
+	public Customer update(Customer c) {
+		this.name = c.name;
+		this.phoneNumber = c.phoneNumber;
+		this.email = c.email;
+		
+		return this;
+	}
 }

@@ -20,10 +20,11 @@ import lombok.Data;
 public class Currency {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private int id;
 	@Column(unique = true, nullable = false)
 	private String code;
 	private String name;
+	private String symbol;
 	private double exchangeByEuro;
 	
 	
@@ -39,4 +40,12 @@ public class Currency {
 	@JsonIgnore
 	@OneToMany(mappedBy = "currency")
 	private List<Product> products = new ArrayList<Product>();
+	
+	
+	public Currency update(Currency c) {
+		this.name = c.name;
+		this.symbol = c.symbol;
+		this.exchangeByEuro = c.exchangeByEuro;
+		return this;
+	}
 }

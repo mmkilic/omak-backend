@@ -53,6 +53,7 @@ public class User implements UserDetails{
 	private boolean credentialsNonExpired;
 	@Enumerated(EnumType.STRING)
 	private Set<Authorities> authorities;
+	@Enumerated(EnumType.STRING)
 	private Types type = Types.NONE;
 	
 	//Date
