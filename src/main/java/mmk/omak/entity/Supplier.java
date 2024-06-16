@@ -27,11 +27,12 @@ import lombok.Data;
 public class Supplier {
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE, generator="tab")
-	private long id;
+	private int id;
 	@Column(unique = true)
 	private String name;
-	private String phoneNumber;
 	private String email;
+	private String phoneNumber;
+	
 	
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime dateCreated;
@@ -53,4 +54,17 @@ public class Supplier {
 			  joinColumns = @JoinColumn(name = "supplier_id"), 
 			  inverseJoinColumns = @JoinColumn(name = "product_id"))
 	private List<Product> products = new ArrayList<Product>();
+	
+	
+	public Supplier update(Supplier s) {
+		this.email = s.email;
+		this.phoneNumber = s.phoneNumber;
+		this.address = s.address;
+		this.district = s.district;
+		this.city = s.city;
+		this.country = s.country;
+		this.postCode = s.postCode;
+		
+		return this;
+	}
 }

@@ -4,11 +4,13 @@ import org.springframework.security.core.GrantedAuthority;
 
 public enum Authorities implements GrantedAuthority{
 
-	NONE("NONE"),
-	ADM("ADMINISTRATOR"),
-	OPP("OPPORTUNITY"),
-	PRD("PRODUCT"),
-	CST("CUSTOMER");
+	NONE("None"),
+	ACC("Access"),
+	ADM("Admin"),
+	OPP("Opportunity"),
+	PRD("Product"),
+	CUS("Customer"),
+	SUP("Supplier");
 
     private String value;
 

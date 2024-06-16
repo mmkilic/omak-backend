@@ -1,0 +1,46 @@
+[
+{
+    "email":"ayse1@asd.com",
+    "name":"Ayşe1",
+    "surname":"Ayşe",
+    "title":"-",
+    "phoneNumber":"-",
+    "type":"CUSTOMER",
+    "keyContact":"False",
+    "note":"-",
+    "customer":{"id":1001}
+},
+{
+    "email":"ayse2@asd.com",
+    "name":"Ayşe2",
+    "surname":"Ayşe",
+    "title":"-",
+    "phoneNumber":"-",
+    "type":"CUSTOMER",
+    "keyContact":"True",
+    "note":"-",
+    "customer":{"id":1001}
+},
+{
+    "email":"fatma@asd.com",
+    "name":"Fatma1",
+    "surname":"Fatma",
+    "title":"-",
+    "phoneNumber":"-",
+    "type":"SUPPLIER",
+    "keyContact":"True",
+    "note":"-",
+    "supplier":{"id":5001}
+},
+{
+    "email":"fatma2@asd.com",
+    "name":"Fatma2",
+    "surname":"Fatma",
+    "title":"-",
+    "phoneNumber":"-",
+    "type":"SUPPLIER",
+    "keyContact":"True",
+    "note":"-",
+    "supplier":{"id":5001}
+}
+]

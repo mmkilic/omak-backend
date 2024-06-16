@@ -28,8 +28,8 @@ public class Customer {
 	private int id;
 	@Column(unique = true)
 	private String name;
-	private String phoneNumber;
 	private String email;
+	private String phoneNumber;
 	
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime dateCreated;
@@ -59,9 +59,13 @@ public class Customer {
 	
 	
 	public Customer update(Customer c) {
-		this.name = c.name;
-		this.phoneNumber = c.phoneNumber;
 		this.email = c.email;
+		this.phoneNumber = c.phoneNumber;
+		this.address = c.address;
+		this.district = c.district;
+		this.city = c.city;
+		this.country = c.country;
+		this.postCode = c.postCode;
 		
 		return this;
 	}

@@ -24,7 +24,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import mmk.omak.entity.request.UserRequest;
 import mmk.omak.enums.Authorities;
-import mmk.omak.enums.Types;
 
 @Entity
 @Table
@@ -53,8 +52,6 @@ public class User implements UserDetails{
 	private boolean credentialsNonExpired;
 	@Enumerated(EnumType.STRING)
 	private Set<Authorities> authorities;
-	@Enumerated(EnumType.STRING)
-	private Types type = Types.NONE;
 	
 	//Date
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
@@ -87,7 +84,6 @@ public class User implements UserDetails{
 		this.setName(ur.getName());
 		this.setSurname(ur.getSurname());
 		this.setAuthorities(ur.getAuthorities());
-		this.setType(ur.getType());
 		return this;
 	}
 	public User update(User u) {
@@ -103,8 +99,6 @@ public class User implements UserDetails{
 		//this.setCredentialsNonExpired(u.isCredentialsNonExpired());
 		if(u.getAuthorities() != null)
 			this.setAuthorities(u.getAuthorities());
-		if(u.getType() != null)
-			this.setType(u.getType());
 		return this;
 	}
 	

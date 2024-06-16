@@ -22,7 +22,7 @@ import mmk.omak.enums.ContactTypes;
 public class Contact {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private int id;
 	@Column(nullable = false, unique = true)
 	private String email;
 	private String name;

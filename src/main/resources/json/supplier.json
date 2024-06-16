@@ -1,0 +1,22 @@
+[
+{
+    "name":"Kurt Makina",
+    "email":"info@kurt.com",
+    "phoneNumber":"02123334455",
+    "address":"asd",
+    "district":"-",
+    "city":"Tuzla",
+    "country":"Türkiye",
+    "postCode":123
+},
+{
+    "name":"Tilki Makina",
+    "email":"info@tilki.com",
+    "phoneNumber":"02120001122",
+    "address":"asd",
+    "district":"-",
+    "city":"Pendik",
+    "country":"Türkiye",
+    "postCode":321
+}
+]

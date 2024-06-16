@@ -4,23 +4,20 @@
     "name":"Murat",
     "surname":"CELIK",
     "password":"crm123",
-    "authorities":["ADM", "OPP", "PRD", "CST"],
-    "type":"EMPLOYEE"
+    "authorities":["ADM", "ACC", "OPP", "PRD"]
 },
 {
     "email":"mehmetkilic7@hotmail.com.tr",
     "name":"Mehmet",
     "surname":"KILIC",
     "password":"crm123",
-    "authorities":["ADM", "OPP", "PRD", "CST"],
-    "type":"EMPLOYEE"
+    "authorities":["ADM", "ACC", "OPP", "PRD"]
 },
 {
     "email":"ozkan88altan@hotmail.com",
     "name":"Ozkan",
     "surname":"ALTAN",
     "password":"crm123",
-    "authorities":["ADM", "OPP", "PRD", "CST"],
-    "type":"EMPLOYEE"
+    "authorities":["ADM", "ACC", "OPP", "PRD"]
 }
 ]

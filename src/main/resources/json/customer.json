@@ -1,0 +1,24 @@
+[
+{
+    "name":"Aslan Makina",
+    "email":"info@aslan.com",
+    "phoneNumber":"02123334455",
+    "address":"asd",
+    "district":"-",
+    "city":"Tuzla",
+    "country":"Türkiye",
+    "postCode":123,
+    "customerOwner":{"id":1}
+},
+{
+    "name":"Kaplan Makina",
+    "email":"info@kaplan.com",
+    "phoneNumber":"02120001122",
+    "address":"asd",
+    "district":"-",
+    "city":"Pendik",
+    "country":"Türkiye",
+    "postCode":321,
+    "customerOwner":{"id":2}
+}
+]

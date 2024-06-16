@@ -9,7 +9,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import mmk.omak.enums.Authorities;
-import mmk.omak.enums.Types;
 
 @Data
 @Builder
@@ -24,8 +23,5 @@ public class UserRequest {
 	private String password;
 	@Enumerated(EnumType.STRING)
 	private Set<Authorities> authorities;
-	@Builder.Default
-	@Enumerated(EnumType.STRING)
-	private Types type = Types.NONE;
 	
 }
