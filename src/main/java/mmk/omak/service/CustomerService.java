@@ -1,5 +1,6 @@
 package mmk.omak.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -28,6 +29,7 @@ public class CustomerService {
 	public Customer create(Customer customer) {
 		if(customer.getId() > 0)
 			throw new BadRequestException("This service is only used for new records");
+		customer.setDateCreated(LocalDateTime.now());
 		return customerRepo.save(customer);
 	}
 	
