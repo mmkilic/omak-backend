@@ -1,5 +1,7 @@
 package mmk.omak.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -8,10 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
-import lombok.AccessLevel;
 import lombok.Data;
-import lombok.Setter;
 import mmk.omak.enums.DeliveryStatus;
 import mmk.omak.enums.ReceivingStatus;
 
@@ -24,11 +23,9 @@ public class Line {
 	private long id;
 	private String productCode;
 	private String productDescription;
+	private byte[] productImage;
 	private double quantity;
 	private double unitPrice;
-	@Transient
-	@Setter(AccessLevel.NONE)
-	private double totalPrice;
 	private String duration;
 	private double listPrice;
 	private double purchasePrice;
@@ -45,8 +42,10 @@ public class Line {
 	private ProductBrand productBrand;
 	@ManyToOne
 	private Currency currency;
+	@JsonIgnore
 	@ManyToOne
 	private SalesOrder salesOrder;
+	@JsonIgnore
 	@ManyToOne
 	private Offer offer;
 	

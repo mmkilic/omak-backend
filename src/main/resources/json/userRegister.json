@@ -1,0 +1,23 @@
+[
+{
+    "email":"emre@gmc.com",
+    "name":"Emre",
+    "surname":"TEST",
+    "password":"crm123",
+    "confirmationPassword":"crm123"
+},
+{
+    "email":"hakan@gmc.com",
+    "name":"Hakan",
+    "surname":"TEST",
+    "password":"crm123",
+    "confirmationPassword":"crm123"
+},
+{
+    "email":"arif@gmc.com",
+    "name":"Arif",
+    "surname":"TEST",
+    "password":"crm123",
+    "confirmationPassword":"crm123"
+}
+]

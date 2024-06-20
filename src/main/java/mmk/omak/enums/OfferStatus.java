@@ -5,6 +5,7 @@ public enum OfferStatus {
 	NONE("Hiçbiri"),
 	OPEN("Açık"),
 	REVIZED("Revize"),
+	ORDERED("Sipariş Oldu"),
 	CANCELED("İptal");
 	
 	private final String DATA;

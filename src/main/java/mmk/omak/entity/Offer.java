@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -26,10 +25,8 @@ public class Offer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	private double taxRate;
-	private double taxAmount;
 	private double amount;
-	private double totalAmount;
+	private double taxRate;
 	@Enumerated(EnumType.STRING)
 	private OfferStatus status;
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
@@ -41,12 +38,25 @@ public class Offer {
 	@ManyToOne
 	private Customer customer;
 	@ManyToOne
-	private User salesman;
-	@ManyToOne
 	private Currency currency;
+	@ManyToOne
+	private User salesman;
 	
 	
-	@JsonIgnore
 	@OneToMany(mappedBy = "offer")
 	private List<Line> offerlines = new ArrayList<Line>();
+	
+	public double getTaxtAmount() {
+		return amount * taxRate;
+	}
+	public double getTotalAmount() {
+		return amount + getTaxtAmount();
+	}
+	
+	public Offer update(Offer o) {
+		this.taxRate = o.taxRate;
+		this.currency = o.currency != null ? o.currency : this.currency;
+		this.customer = o.customer != null ? o.customer : this.customer;
+		return this;
+	}
 }

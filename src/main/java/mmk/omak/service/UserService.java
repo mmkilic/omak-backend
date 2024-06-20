@@ -29,24 +29,29 @@ public class UserService implements UserDetailsService{
 		this.passwordEncoder = passwordEncoder;
 	}
 	
-	
 	public User getById(int id) {
 		return userRepo.findById(id).orElseThrow(() -> new BadRequestException("User with id " +id+ " not found."));
 	}
+	
 	public User getByEmail(String email) {
 		return userRepo.getByEmail(email).orElseThrow(() -> new BadRequestException("User with email " +email+ " not found."));
 	}
+	
 	public List<User> getAll() {
 		return userRepo.findAll();
 	}
+	
 	public List<User> getActives() {
 		return userRepo.getActives();
 	}
 	
-	
 	public User create(UserRequest userRequest) {
 		var user = new User();
-		user.update(userRequest);
+		user.setEmail(userRequest.getEmail());
+		user.setName(userRequest.getName());
+		user.setSurname(userRequest.getSurname());
+		user.setPassword(passwordEncoder.encode("crm123"));
+		user.setAuthorities(userRequest.getAuthorities());
 		user.setEnabled(true);
 		user.setAccountNonLocked(false);
 		user.setAccountNonExpired(true);
@@ -57,7 +62,9 @@ public class UserService implements UserDetailsService{
 	
 	public User update(User userUpdate) {
 		var user = getById(userUpdate.getId());
-		user.update(userUpdate);
+		user.setName(userUpdate.getName());
+		user.setSurname(userUpdate.getSurname());
+		user.setAuthorities(userUpdate.getAuthorities());
 		return userRepo.save(user);
 	}
 	
@@ -71,12 +78,23 @@ public class UserService implements UserDetailsService{
 		return userRepo.save(user);
 	}
 	
+	public User enable(User user) {
+		user = getById(user.getId());
+		if(user.isEnabled()) {
+			user.setEnabled(false);
+			user.setDateDeactivated(LocalDateTime.now());
+		}
+		else {
+			user.setEnabled(true);
+			user.setDateDeactivated(null);
+		}
+		return userRepo.save(user);
+	}
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		return userRepo.getByEmail(username).orElseThrow(EntityNotFoundException::new);
 	}
-	
 	
 	public String getMessage() {
 		String returnMsg = message;

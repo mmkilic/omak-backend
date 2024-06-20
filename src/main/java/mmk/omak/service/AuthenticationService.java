@@ -71,7 +71,8 @@ public class AuthenticationService {
 	}
 	
 	public String register(RegisterRequest request) {
-		if(!request.getEmail().contains("@") || !request.getEmail().endsWith(".com") || request.getEmail().contains(" "))
+		
+		if(!request.getEmail().matches("^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$"))
 			throw new RuntimeException("Incorrect mail adress");
 		if (request.getPassword().length() < 6) {
             throw new IllegalStateException("Password should be longer than 6 digits.");

@@ -20,7 +20,6 @@ public class UserRequest {
 	private String email;
 	private String name;
 	private String surname;
-	private String password;
 	@Enumerated(EnumType.STRING)
 	private Set<Authorities> authorities;
 	

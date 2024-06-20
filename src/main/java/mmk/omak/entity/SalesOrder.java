@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -50,7 +49,6 @@ public class SalesOrder {
 	private User salesman;
 	
 	
-	@JsonIgnore
 	@OneToMany(mappedBy = "salesOrder")
 	private List<Line> orderlines = new ArrayList<Line>();
 	

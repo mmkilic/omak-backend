@@ -2,6 +2,7 @@ package mmk.omak.controller;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,14 +30,17 @@ public class UserController {
 	public User getById(@PathVariable int id) {
 		return userService.getById(id);
 	}
+	
 	@GetMapping("/email")
 	public User getByEmail(@RequestParam String email) {
 		return userService.getByEmail(email);
 	}
+	
 	@GetMapping
 	public List<User> getAll() {
 		return userService.getAll();
 	}
+	
 	@GetMapping("/avtives")
 	public List<User> getActives() {
 		return userService.getActives();
@@ -53,8 +57,14 @@ public class UserController {
 	public User update(@RequestBody User userUpdate) {
 		return userService.update(userUpdate);
 	}
+	
 	@PutMapping("/reset-password")
 	public User resetPassword(@RequestBody User user) {
 		return userService.resetPassword(user);
+	}
+	
+	@DeleteMapping("/enable")
+	public User enable(@RequestBody User user) {
+		return userService.enable(user);
 	}
 }

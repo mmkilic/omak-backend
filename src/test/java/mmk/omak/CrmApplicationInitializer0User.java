@@ -14,15 +14,15 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 
-import mmk.omak.entity.Currency;
-import mmk.omak.service.CurrencyService;
+import mmk.omak.entity.request.UserRequest;
+import mmk.omak.service.UserService;
 
 @SpringBootTest
-class CrmApplicationInitializer2Currency {
+class CrmApplicationInitializer0User {
 	
 	private ObjectMapper mapper;
 	@Autowired
-	private CurrencyService service;
+	private UserService userService;
 	
 	@Test
 	void contextLoads() {
@@ -32,17 +32,17 @@ class CrmApplicationInitializer2Currency {
 				.addModule(new JavaTimeModule())
 				.build();
 		
-		initUser("/json/currency.json");
+		initUser("/json/user.json");
 	}
 	
 	void initUser(String file) {
-		TypeReference<List<Currency>> typeReference = new TypeReference<List<Currency>>() {};
+		TypeReference<List<UserRequest>> typeReference = new TypeReference<List<UserRequest>>() {};
 		InputStream inputStream = TypeReference.class.getResourceAsStream(file);
 		try {
-			List<Currency> data = mapper.readValue(inputStream, typeReference);
-			for (Currency datum : data) {
-				service.create(datum);
-				System.out.println("Currency have been saved.");
+			List<UserRequest> users = mapper.readValue(inputStream, typeReference);
+			for (UserRequest user : users) {
+				userService.create(user);
+				System.out.println("Users have been saved.");
 			}
 		}catch (Exception e) {
 			System.out.println("Error: " + e.getMessage());
