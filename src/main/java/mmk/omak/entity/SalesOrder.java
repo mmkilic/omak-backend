@@ -13,10 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
-import lombok.AccessLevel;
 import lombok.Data;
-import lombok.Setter;
 
 @Entity
 @Table
@@ -29,12 +26,6 @@ public class SalesOrder {
 	private double taxAmount;
 	private double amount;
 	private double totalAmount;
-	@Transient
-	@Setter(AccessLevel.NONE)
-	private double deliveryPercentage;
-	@Transient
-	@Setter(AccessLevel.NONE)
-	private double receivingPercentage;
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime dateCreated;
 	
@@ -53,15 +44,23 @@ public class SalesOrder {
 	private List<Line> orderlines = new ArrayList<Line>();
 	
 	
-	public double getRecievingPercentage() {
-		if(orderlines == null || orderlines.isEmpty())
-			return 0;
-		return Math.round(100.0 * orderlines.stream().mapToInt(o -> o.getReveivingStatus().getValue()).sum() / (double) orderlines.size());
+	public SalesOrder update(SalesOrder o) {
+		this.taxRate = o.taxRate;
+		this.currency = o.currency != null ? o.currency : this.currency;
+		this.customer = o.customer != null ? o.customer : this.customer;
+		return this;
 	}
+	
+	
 	public double getDeliveryPercentage() {
 		if(orderlines == null || orderlines.isEmpty())
 			return 0;
 		return Math.round(100.0 * orderlines.stream().mapToInt(o -> o.getDeliveryStatus().getValue()).sum() / (double) orderlines.size());
 	}
 	
+	public double getRecievingPercentage() {
+		if(orderlines == null || orderlines.isEmpty())
+			return 0;
+		return Math.round(100.0 * orderlines.stream().mapToInt(o -> o.getReceivingStatus().getValue()).sum() / (double) orderlines.size());
+	}
 }

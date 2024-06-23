@@ -70,7 +70,7 @@ class Initializer2Currency {
 		return webClient
 				.post()
 				.uri(uriBuilder ->
-				      uriBuilder.path("/offers").build())
+				      uriBuilder.path("/currencies").build())
 				.headers(h -> h.setBearerAuth(token))
 				.contentType(MediaType.APPLICATION_JSON)
 				.body(BodyInserters.fromPublisher(Mono.just(currency), Currency.class))

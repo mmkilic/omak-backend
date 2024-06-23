@@ -15,18 +15,18 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 
-import mmk.omak.entity.Customer;
+import mmk.omak.entity.SalesOrder;
 import mmk.omak.entity.request.LoginRequest;
 import mmk.omak.entity.response.LoginResponse;
 import reactor.core.publisher.Mono;
 
-class Initializer3Customer {
+class Initializer7SalesOrder {
 	
 	private ObjectMapper mapper;
 	private final String URL = "http://localhost:8080/api-crm";
 	
 	public static void main(String[] args) {
-		new Initializer3Customer().contextLoads();
+		new Initializer7SalesOrder().contextLoads();
 	}
 	
 	void contextLoads() {
@@ -45,12 +45,12 @@ class Initializer3Customer {
 		
 		System.out.println("token: " + token);
 		
-		initializer("/json/customer.json").forEach(c -> {
-			c = request(webClient, token, c);
+		initializer("/json/salesOrder.json").forEach(order -> {
+			order = request(webClient, token, order);
 			System.out.println(String.format("%s - %s - %s", 
-					c.getId(), 
-					c.getCountry(), 
-					c.getName()));
+					order.getId(), 
+					order.getAmount(), 
+					order.getTotalAmount()));
 		});
 	}
 	
@@ -66,21 +66,21 @@ class Initializer3Customer {
 				.block();
 	}
 	
-	private Customer request(WebClient webClient, String token, Customer customer) {
+	private SalesOrder request(WebClient webClient, String token, SalesOrder order) {
 		return webClient
 				.post()
 				.uri(uriBuilder ->
-				      uriBuilder.path("/customers").build())
+				      uriBuilder.path("/orders").build())
 				.headers(h -> h.setBearerAuth(token))
 				.contentType(MediaType.APPLICATION_JSON)
-				.body(BodyInserters.fromPublisher(Mono.just(customer), Customer.class))
+				.body(BodyInserters.fromPublisher(Mono.just(order), SalesOrder.class))
 				.retrieve()
-				.bodyToMono(Customer.class)
+				.bodyToMono(SalesOrder.class)
 				.block();
 	}
 	
-	private List<Customer> initializer(String file) {
-		TypeReference<List<Customer>> typeReference = new TypeReference<List<Customer>>() {};
+	private List<SalesOrder> initializer(String file) {
+		TypeReference<List<SalesOrder>> typeReference = new TypeReference<List<SalesOrder>>() {};
 		InputStream inputStream = TypeReference.class.getResourceAsStream(file);
 		try {
 			return mapper.readValue(inputStream, typeReference);

@@ -70,7 +70,7 @@ class Initializer5Contact {
 		return webClient
 				.post()
 				.uri(uriBuilder ->
-				      uriBuilder.path("/offers").build())
+				      uriBuilder.path("/contacts").build())
 				.headers(h -> h.setBearerAuth(token))
 				.contentType(MediaType.APPLICATION_JSON)
 				.body(BodyInserters.fromPublisher(Mono.just(contact), Contact.class))

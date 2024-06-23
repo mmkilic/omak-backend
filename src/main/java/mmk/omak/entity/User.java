@@ -52,6 +52,8 @@ public class User implements UserDetails{
 	@Enumerated(EnumType.STRING)
 	private Set<Authorities> authorities;
 	
+	private String phoneNumber;
+	
 	//Date
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime dateCreated;

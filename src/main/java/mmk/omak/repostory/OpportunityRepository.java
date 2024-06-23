@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import mmk.omak.entity.Opportunity;
 
 @Repository
-public interface OpportunityRepository extends JpaRepository<Opportunity, Integer>{
+public interface OpportunityRepository extends JpaRepository<Opportunity, Long>{
 	
 }

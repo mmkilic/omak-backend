@@ -35,7 +35,7 @@ public class Line {
 	@Enumerated(EnumType.STRING)
 	private DeliveryStatus deliveryStatus;
 	@Enumerated(EnumType.STRING)
-	private ReceivingStatus reveivingStatus;
+	private ReceivingStatus receivingStatus;
 	
 	
 	@ManyToOne
