@@ -34,26 +34,29 @@ public class ExcelGenerator {
 	
 	private void writeData(SalesOrder order) {
 		XSSFSheet sheet = workbook.getSheet("Teklif");
-		CellStyle style = style(16, false);
 		
-		Row row = sheet.createRow(14);
+		Row row = sheet.getRow(14);
+		CellStyle style = row.getCell(3).getCellStyle();
+		
 		createCell(sheet, style, row, 3, order.getCustomer().getName());
 		createCell(sheet, style, row, 13, order.getDateCreated().toString());
 		
-		row = sheet.createRow(16);
+		row = sheet.getRow(16);
 		createCell(sheet, style, row, 3, order.getCustomer().getContacts().stream().filter(c -> c.isKeyContact()).findFirst().get().getName());
 		createCell(sheet, style, row, 13, order.getId());
 		
-		row = sheet.createRow(56);
+		row = sheet.getRow(56);
+		style = row.getCell(9).getCellStyle();
 		createCell(sheet, style, row, 9, order.getSalesman().getFullName());
-		row = sheet.createRow(58);
+		row = sheet.getRow(58);
 		createCell(sheet, style, row, 9, order.getSalesman().getEmail());
-		row = sheet.createRow(60);
+		row = sheet.getRow(60);
 		createCell(sheet, style, row, 9, order.getSalesman().getPhoneNumber());
 		
 		int rowCount = 105;
+		style = sheet.getRow(105).getCell(9).getCellStyle();
 		for (Line line : order.getOrderlines()) {
-			row = sheet.createRow(rowCount++);
+			row = sheet.getRow(rowCount++);
 			createCell(sheet, style, row, 1, "-");
 			createCell(sheet, style, row, 2, "-");
 			createCell(sheet, style, row, 3, line.getProductCode());
