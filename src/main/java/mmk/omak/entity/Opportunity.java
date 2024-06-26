@@ -31,10 +31,10 @@ public class Opportunity {
 	@ManyToOne
 	private User salesman;
 	
-	
 	@JsonIgnore
 	@OneToMany(mappedBy = "opportunity")
 	private List<Offer> offers = new ArrayList<Offer>();
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "opportunity")
 	private List<SalesOrder> salesOrders = new ArrayList<SalesOrder>();

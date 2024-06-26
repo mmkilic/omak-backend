@@ -15,18 +15,18 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 
-import mmk.omak.entity.SalesOrder;
+import mmk.omak.entity.ProductBrand;
 import mmk.omak.entity.request.LoginRequest;
 import mmk.omak.entity.response.LoginResponse;
 import reactor.core.publisher.Mono;
 
-class Initializer7SalesOrder {
+class Initializer06ProductBrand {
 	
 	private ObjectMapper mapper;
 	private final String URL = "http://localhost:8080/api-crm";
 	
 	public static void main(String[] args) {
-		new Initializer7SalesOrder().contextLoads();
+		new Initializer06ProductBrand().contextLoads();
 	}
 	
 	void contextLoads() {
@@ -45,12 +45,12 @@ class Initializer7SalesOrder {
 		
 		System.out.println("token: " + token);
 		
-		initializer("/json/salesOrder.json").forEach(order -> {
-			order = request(webClient, token, order);
+		initializer("/json/brand.json").forEach(b -> {
+			b = request(webClient, token, b);
 			System.out.println(String.format("%s - %s - %s", 
-					order.getId(), 
-					order.getAmount(), 
-					order.getTotalAmount()));
+					b.getId(), 
+					b.getName(), 
+					"-"));
 		});
 	}
 	
@@ -66,21 +66,21 @@ class Initializer7SalesOrder {
 				.block();
 	}
 	
-	private SalesOrder request(WebClient webClient, String token, SalesOrder order) {
+	private ProductBrand request(WebClient webClient, String token, ProductBrand brand) {
 		return webClient
 				.post()
 				.uri(uriBuilder ->
-				      uriBuilder.path("/orders").build())
+				      uriBuilder.path("/product-brands").build())
 				.headers(h -> h.setBearerAuth(token))
 				.contentType(MediaType.APPLICATION_JSON)
-				.body(BodyInserters.fromPublisher(Mono.just(order), SalesOrder.class))
+				.body(BodyInserters.fromPublisher(Mono.just(brand), ProductBrand.class))
 				.retrieve()
-				.bodyToMono(SalesOrder.class)
+				.bodyToMono(ProductBrand.class)
 				.block();
 	}
 	
-	private List<SalesOrder> initializer(String file) {
-		TypeReference<List<SalesOrder>> typeReference = new TypeReference<List<SalesOrder>>() {};
+	private List<ProductBrand> initializer(String file) {
+		TypeReference<List<ProductBrand>> typeReference = new TypeReference<List<ProductBrand>>() {};
 		InputStream inputStream = TypeReference.class.getResourceAsStream(file);
 		try {
 			return mapper.readValue(inputStream, typeReference);

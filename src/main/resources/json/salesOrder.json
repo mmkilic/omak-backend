@@ -7,6 +7,8 @@
     	{
     		"productCode":"asd",
     		"productDescription":"asd",
+    		"currency":{"id":1},
+    		"productBrand":{"id":1},
     		"quantity":3,
     		"unitPrice":32,
     		"duration":"5 Weeks",
@@ -17,10 +19,42 @@
     	{
     		"productCode":"qwe",
     		"productDescription":"qwe",
+    		"currency":{"id":1},
+    		"productBrand":{"id":2},
     		"quantity":2,
     		"unitPrice":44,
     		"duration":"6 Weeks",
     		"purchasePrice":30.5,
+    		"receivingStatus":"ONGOING",
+    		"deliveryStatus":"ONGOING"
+    	}
+	]
+},
+{
+	"opportunity":{"id":1},
+    "taxRate":0.18,
+    "customer":{"id":1001},
+    "currency":{"id":1},
+    "orderlines":[
+    	{
+    		"productCode":"asd",
+    		"productDescription":"asd",
+    		"quantity":3,
+    		"unitPrice":32,
+    		"duration":"5 Weeks",
+    		"purchasePrice":20.5,
+    		"productBrand":{"id":1},
+    		"receivingStatus":"ONGOING",
+    		"deliveryStatus":"ONGOING"
+    	},
+    	{
+    		"productCode":"qwe",
+    		"productDescription":"qwe",
+    		"quantity":2,
+    		"unitPrice":44,
+    		"duration":"6 Weeks",
+    		"purchasePrice":30.5,
+    		"productBrand":{"id":2},
     		"receivingStatus":"ONGOING",
     		"deliveryStatus":"ONGOING"
     	}

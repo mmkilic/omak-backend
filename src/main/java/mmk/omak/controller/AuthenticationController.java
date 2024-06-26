@@ -1,6 +1,7 @@
 package mmk.omak.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -12,11 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import mmk.omak.entity.ImageTest;
 import mmk.omak.entity.User;
 import mmk.omak.entity.request.ChangePasswdRequest;
 import mmk.omak.entity.request.LoginRequest;
 import mmk.omak.entity.request.RegisterRequest;
 import mmk.omak.entity.response.LoginResponse;
+import mmk.omak.repostory.ImageTestRepository;
 import mmk.omak.service.AuthenticationService;
 
 @RestController
@@ -25,6 +28,7 @@ import mmk.omak.service.AuthenticationService;
 public class AuthenticationController {
 	
 	private final AuthenticationService authService;
+	private final ImageTestRepository imageRepo;
 	
 	@GetMapping("/hello")
 	public String refreshToken() {
@@ -55,4 +59,14 @@ public class AuthenticationController {
     public LoginResponse changePassword(@RequestBody ChangePasswdRequest request) {
         return authService.changePassword(request);
     }
+	
+	@PostMapping("/test")
+	public ImageTest uploadImage(@RequestBody ImageTest imageTest) {
+	  return imageRepo.save(imageTest);
+	}
+	
+	@GetMapping("/test")
+	public List<ImageTest> showImage() {
+	  return imageRepo.findAll();
+	}
 }

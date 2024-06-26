@@ -12,8 +12,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -47,14 +45,17 @@ public class Supplier {
 	@OneToMany(mappedBy = "supplier")
 	private List<Contact> contacts = new ArrayList<Contact>();
 	
-	
+	/*
 	@JsonIgnore
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
 	@JoinTable(name = "product_supplier_join", 
 			  joinColumns = @JoinColumn(name = "supplier_id"), 
 			  inverseJoinColumns = @JoinColumn(name = "product_id"))
 	private List<Product> products = new ArrayList<Product>();
-	
+	*/
+	@JsonIgnore
+	@ManyToMany(mappedBy = "suppliers")
+	private List<Product> products = new ArrayList<Product>();
 	
 	public Supplier update(Supplier s) {
 		this.email = s.email;

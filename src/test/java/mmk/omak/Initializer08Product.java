@@ -15,18 +15,18 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 
-import mmk.omak.entity.Customer;
+import mmk.omak.entity.Product;
 import mmk.omak.entity.request.LoginRequest;
 import mmk.omak.entity.response.LoginResponse;
 import reactor.core.publisher.Mono;
 
-class Initializer3Customer {
+class Initializer08Product {
 	
 	private ObjectMapper mapper;
 	private final String URL = "http://localhost:8080/api-crm";
 	
 	public static void main(String[] args) {
-		new Initializer3Customer().contextLoads();
+		new Initializer08Product().contextLoads();
 	}
 	
 	void contextLoads() {
@@ -45,12 +45,12 @@ class Initializer3Customer {
 		
 		System.out.println("token: " + token);
 		
-		initializer("/json/customer.json").forEach(c -> {
-			c = request(webClient, token, c);
+		initializer("/json/product.json").forEach(p -> {
+			p = request(webClient, token, p);
 			System.out.println(String.format("%s - %s - %s", 
-					c.getId(), 
-					c.getCountry(), 
-					c.getName()));
+					p.getId(), 
+					p.getName(), 
+					p.getCode()));
 		});
 	}
 	
@@ -66,21 +66,21 @@ class Initializer3Customer {
 				.block();
 	}
 	
-	private Customer request(WebClient webClient, String token, Customer customer) {
+	private Product request(WebClient webClient, String token, Product product) {
 		return webClient
 				.post()
 				.uri(uriBuilder ->
-				      uriBuilder.path("/customers").build())
+				      uriBuilder.path("/products").build())
 				.headers(h -> h.setBearerAuth(token))
 				.contentType(MediaType.APPLICATION_JSON)
-				.body(BodyInserters.fromPublisher(Mono.just(customer), Customer.class))
+				.body(BodyInserters.fromPublisher(Mono.just(product), Product.class))
 				.retrieve()
-				.bodyToMono(Customer.class)
+				.bodyToMono(Product.class)
 				.block();
 	}
 	
-	private List<Customer> initializer(String file) {
-		TypeReference<List<Customer>> typeReference = new TypeReference<List<Customer>>() {};
+	private List<Product> initializer(String file) {
+		TypeReference<List<Product>> typeReference = new TypeReference<List<Product>>() {};
 		InputStream inputStream = TypeReference.class.getResourceAsStream(file);
 		try {
 			return mapper.readValue(inputStream, typeReference);

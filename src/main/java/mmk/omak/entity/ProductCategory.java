@@ -27,7 +27,6 @@ public class ProductCategory {
 	private String name;
 	
 	
-	@JsonIgnore
 	@JoinColumn(name="child_id")
 	@ManyToOne
 	private ProductCategory parent;

@@ -15,16 +15,18 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 
-import mmk.omak.entity.request.RegisterRequest;
+import mmk.omak.entity.Customer;
+import mmk.omak.entity.request.LoginRequest;
+import mmk.omak.entity.response.LoginResponse;
 import reactor.core.publisher.Mono;
 
-class Initializer1User {
+class Initializer03Customer {
 	
 	private ObjectMapper mapper;
 	private final String URL = "http://localhost:8080/api-crm";
 	
 	public static void main(String[] args) {
-		new Initializer1User().contextLoads();
+		new Initializer03Customer().contextLoads();
 	}
 	
 	void contextLoads() {
@@ -36,29 +38,49 @@ class Initializer1User {
 		
 		var webClient = WebClient.builder().baseUrl(URL).build();
 		
-		initUsers("/json/userRegister.json").forEach(ur -> {
-			requestRegister(webClient, ur);
+		String token = requestLogin(webClient, LoginRequest.builder()
+				.email("murat@gmcendustriyel.com")
+				.password("crm123")
+				.build()).getToken();
+		
+		System.out.println("token: " + token);
+		
+		initializer("/json/customer.json").forEach(c -> {
+			c = request(webClient, token, c);
 			System.out.println(String.format("%s - %s - %s", 
-					ur.getName(), 
-					ur.getEmail(),
-					ur.getSurname()));
+					c.getId(), 
+					c.getCountry(), 
+					c.getName()));
 		});
 	}
 	
-	private String requestRegister(WebClient webClient, RegisterRequest request) {
+	private LoginResponse requestLogin(WebClient webClient, LoginRequest loginRequest) {
 		return webClient
 				.post()
 				.uri(uriBuilder ->
-				      uriBuilder.path("/auth/register").build())
+				      uriBuilder.path("/auth/login").build())
 				.contentType(MediaType.APPLICATION_JSON)
-				.body(BodyInserters.fromPublisher(Mono.just(request), RegisterRequest.class))
+				.body(BodyInserters.fromPublisher(Mono.just(loginRequest), LoginRequest.class))
 				.retrieve()
-				.bodyToMono(String.class)
+				.bodyToMono(LoginResponse.class)
 				.block();
 	}
 	
-	private List<RegisterRequest> initUsers(String file) {
-		TypeReference<List<RegisterRequest>> typeReference = new TypeReference<List<RegisterRequest>>() {};
+	private Customer request(WebClient webClient, String token, Customer customer) {
+		return webClient
+				.post()
+				.uri(uriBuilder ->
+				      uriBuilder.path("/customers").build())
+				.headers(h -> h.setBearerAuth(token))
+				.contentType(MediaType.APPLICATION_JSON)
+				.body(BodyInserters.fromPublisher(Mono.just(customer), Customer.class))
+				.retrieve()
+				.bodyToMono(Customer.class)
+				.block();
+	}
+	
+	private List<Customer> initializer(String file) {
+		TypeReference<List<Customer>> typeReference = new TypeReference<List<Customer>>() {};
 		InputStream inputStream = TypeReference.class.getResourceAsStream(file);
 		try {
 			return mapper.readValue(inputStream, typeReference);

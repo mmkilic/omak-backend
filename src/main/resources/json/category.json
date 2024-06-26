@@ -1,0 +1,28 @@
+[
+{
+	"name":"Tier"
+},
+{
+	"name":"Powertrain"
+},
+{
+	"name":"Suspension",
+	"parent":{"id": 2}
+},
+{
+	"name":"chassis",
+	"parent":{"id": 2}
+},
+{
+	"name":"Transmission",
+	"parent":{"id": 2}
+},
+{
+	"name":"Engine",
+	"parent":{"id": 2}
+},
+{
+	"name":"PetrolEngine",
+	"parent":{"id": 6}
+}
+]

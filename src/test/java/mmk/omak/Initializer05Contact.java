@@ -15,18 +15,18 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 
-import mmk.omak.entity.Currency;
+import mmk.omak.entity.Contact;
 import mmk.omak.entity.request.LoginRequest;
 import mmk.omak.entity.response.LoginResponse;
 import reactor.core.publisher.Mono;
 
-class Initializer2Currency {
+class Initializer05Contact {
 	
 	private ObjectMapper mapper;
 	private final String URL = "http://localhost:8080/api-crm";
 	
 	public static void main(String[] args) {
-		new Initializer2Currency().contextLoads();
+		new Initializer05Contact().contextLoads();
 	}
 	
 	void contextLoads() {
@@ -45,11 +45,11 @@ class Initializer2Currency {
 		
 		System.out.println("token: " + token);
 		
-		initializer("/json/currency.json").forEach(c -> {
+		initializer("/json/contact.json").forEach(c -> {
 			c = request(webClient, token, c);
 			System.out.println(String.format("%s - %s - %s", 
 					c.getId(), 
-					c.getCode(), 
+					c.getEmail(), 
 					c.getName()));
 		});
 	}
@@ -66,21 +66,21 @@ class Initializer2Currency {
 				.block();
 	}
 	
-	private Currency request(WebClient webClient, String token, Currency currency) {
+	private Contact request(WebClient webClient, String token, Contact contact) {
 		return webClient
 				.post()
 				.uri(uriBuilder ->
-				      uriBuilder.path("/currencies").build())
+				      uriBuilder.path("/contacts").build())
 				.headers(h -> h.setBearerAuth(token))
 				.contentType(MediaType.APPLICATION_JSON)
-				.body(BodyInserters.fromPublisher(Mono.just(currency), Currency.class))
+				.body(BodyInserters.fromPublisher(Mono.just(contact), Contact.class))
 				.retrieve()
-				.bodyToMono(Currency.class)
+				.bodyToMono(Contact.class)
 				.block();
 	}
 	
-	private List<Currency> initializer(String file) {
-		TypeReference<List<Currency>> typeReference = new TypeReference<List<Currency>>() {};
+	private List<Contact> initializer(String file) {
+		TypeReference<List<Contact>> typeReference = new TypeReference<List<Contact>>() {};
 		InputStream inputStream = TypeReference.class.getResourceAsStream(file);
 		try {
 			return mapper.readValue(inputStream, typeReference);

@@ -7,6 +7,8 @@
     	{
     		"productCode":"asd",
     		"productDescription":"asd",
+    		"currency":{"id":1},
+    		"productBrand":{"id":1},
     		"quantity":3,
     		"unitPrice":32,
     		"duration":"5 Weeks",
@@ -15,10 +17,38 @@
     	{
     		"productCode":"qwe",
     		"productDescription":"qwe",
+    		"currency":{"id":1},
+    		"productBrand":{"id":2},
     		"quantity":2,
     		"unitPrice":44,
     		"duration":"6 Weeks",
     		"purchasePrice":30.5
+    	}
+	]
+},
+{
+	"opportunity":{"id":1},
+	"taxRate":0.18,
+    "customer":{"id":1002},
+    "currency":{"id":1},
+    "offerlines":[
+    	{
+    		"productCode":"ASD1",
+    		"productDescription":"piston",
+    		"quantity":3,
+    		"unitPrice":32,
+    		"duration":"5 Weeks",
+    		"purchasePrice":20.5,
+    		"productBrand":{"id":1}
+    	},
+    	{
+    		"productCode":"ASD2",
+    		"productDescription":"shaft",
+    		"quantity":2,
+    		"unitPrice":44,
+    		"duration":"6 Weeks",
+    		"purchasePrice":30.5,
+    		"productBrand":{"id":2}
     	}
 	]
 }
