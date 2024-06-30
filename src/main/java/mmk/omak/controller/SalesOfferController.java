@@ -14,38 +14,37 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import mmk.omak.auth.JwtService;
-import mmk.omak.entity.Opportunity;
-import mmk.omak.service.OpportunityService;
+import mmk.omak.entity.SalesOffer;
+import mmk.omak.service.SalesOfferService;
 
 @RestController
-@RequestMapping("/opportunities")
+@RequestMapping("/offers")
 @RequiredArgsConstructor
-public class OpportunityController {
+public class SalesOfferController {
 	
-	private final OpportunityService opportunityService;
+	private final SalesOfferService offerService;
 	private final JwtService jwtService;
 	
 	@GetMapping("/{id}")
-	public Opportunity getById(@PathVariable long id) {
-		return opportunityService.getById(id);
+	public SalesOffer getById(@PathVariable int id) {
+		return offerService.getById(id);
 	}
 	
 	@GetMapping
-	public List<Opportunity> getAll() {
-		return opportunityService.getAll();
+	public List<SalesOffer> getAll() {
+		return offerService.getAll();
 	}
 	
-	
 	@PostMapping
-	public Opportunity create(@RequestBody Opportunity opportunity, HttpServletRequest request) {
+	public SalesOffer create(@RequestBody SalesOffer offer, HttpServletRequest request) {
 		String userEmail = jwtService.extractUsername(request.getHeader(HttpHeaders.AUTHORIZATION).substring(7));
-		return opportunityService.create(opportunity, userEmail);
+		return offerService.create(offer, userEmail);
 	}
 	
 	
 	@PutMapping
-	public Opportunity update(@RequestBody Opportunity opportunity) {
-		return opportunityService.update(opportunity);
+	public SalesOffer update(@RequestBody SalesOffer offer) {
+		return offerService.update(offer);
 	}
 	
 }

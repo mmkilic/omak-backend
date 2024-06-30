@@ -11,8 +11,7 @@ class Initializer00 {
 		new Initializer06ProductBrand().contextLoads();
 		new Initializer07ProductCategory().contextLoads();
 		new Initializer08Product().contextLoads();
-		new Initializer09Opportunity().contextLoads();
-		new Initializer10Offer().contextLoads();
-		new Initializer11SalesOrder().contextLoads();
+		new Initializer09SalesOffer().contextLoads();
+		new Initializer10SalesOrder().contextLoads();
 	}
 }

@@ -49,13 +49,10 @@ public class Customer {
 	private List<Contact> contacts = new ArrayList<Contact>();
 	@JsonIgnore
 	@OneToMany(mappedBy = "customer")
-	private List<Opportunity> opportunities = new ArrayList<Opportunity>();
-	@JsonIgnore
-	@OneToMany(mappedBy = "customer")
 	private List<SalesOrder> salesOrders = new ArrayList<SalesOrder>();
 	@JsonIgnore
 	@OneToMany(mappedBy = "customer")
-	private List<Offer> offers = new ArrayList<Offer>();
+	private List<SalesOffer> salesOffers = new ArrayList<SalesOffer>();
 	
 	
 	public Customer update(Customer c) {

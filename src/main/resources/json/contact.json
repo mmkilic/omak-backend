@@ -19,7 +19,7 @@
     "type":"CUSTOMER",
     "keyContact":"True",
     "note":"-",
-    "customer":{"id":1001}
+    "customer":{"id":1002}
 },
 {
     "email":"fatma@asd.com",

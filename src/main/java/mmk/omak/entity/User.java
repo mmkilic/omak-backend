@@ -66,13 +66,10 @@ public class User implements UserDetails{
 	private List<Customer> customers = new ArrayList<Customer>();
 	@JsonIgnore
 	@OneToMany(mappedBy = "salesman")
-	private List<Opportunity> opportunities = new ArrayList<Opportunity>();
-	@JsonIgnore
-	@OneToMany(mappedBy = "salesman")
 	private List<SalesOrder> salesOrders = new ArrayList<SalesOrder>();
 	@JsonIgnore
 	@OneToMany(mappedBy = "salesman")
-	private List<Offer> offers = new ArrayList<Offer>();
+	private List<SalesOffer> salesOffers = new ArrayList<SalesOffer>();
 	
 	
 	public String getFullName() {

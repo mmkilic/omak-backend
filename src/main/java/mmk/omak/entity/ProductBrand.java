@@ -27,14 +27,7 @@ public class ProductBrand {
 	@OneToMany(mappedBy = "productBrand")
 	private List<Line> lines = new ArrayList<Line>();
 	
-	/*
-	@JsonIgnore
-	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-	@JoinTable(name = "product_brand_join", 
-	  joinColumns = @JoinColumn(name = "brand_id"), 
-	  inverseJoinColumns = @JoinColumn(name = "product_id"))
-	private List<Product> products = new ArrayList<Product>();
-	*/
+	
 	@JsonIgnore
 	@ManyToMany(mappedBy = "brands")
 	private List<Product> products = new ArrayList<Product>();

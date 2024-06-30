@@ -15,18 +15,18 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 
-import mmk.omak.entity.Opportunity;
+import mmk.omak.entity.SalesOffer;
 import mmk.omak.entity.request.LoginRequest;
 import mmk.omak.entity.response.LoginResponse;
 import reactor.core.publisher.Mono;
 
-class Initializer09Opportunity {
+class Initializer09SalesOffer {
 	
 	private ObjectMapper mapper;
 	private final String URL = "http://localhost:8080/api-crm";
 	
 	public static void main(String[] args) {
-		new Initializer09Opportunity().contextLoads();
+		new Initializer09SalesOffer().contextLoads();
 	}
 	
 	void contextLoads() {
@@ -45,15 +45,13 @@ class Initializer09Opportunity {
 		
 		System.out.println("token: " + token);
 		
-		initializer("/json/opportunity.json").forEach(o -> {
-			o = request(webClient, token, o);
+		initOffers("/json/salesOffer.json").forEach(offer -> {
+			offer = request(webClient, token, offer);
 			System.out.println(String.format("%s - %s - %s", 
-					o.getId(), 
-					o.getOffers().get(0).getId(), 
-					o.getSalesOrders().get(0).getId()));
+					offer.getId(), 
+					offer.getAmount(), 
+					offer.getTotalAmount()));
 		});
-		
-		
 	}
 	
 	private LoginResponse requestLogin(WebClient webClient, LoginRequest loginRequest) {
@@ -68,21 +66,21 @@ class Initializer09Opportunity {
 				.block();
 	}
 	
-	private Opportunity request(WebClient webClient, String token, Opportunity opportunity) {
+	private SalesOffer request(WebClient webClient, String token, SalesOffer offer) {
 		return webClient
 				.post()
 				.uri(uriBuilder ->
-				      uriBuilder.path("/opportunities").build())
+				      uriBuilder.path("/offers").build())
 				.headers(h -> h.setBearerAuth(token))
 				.contentType(MediaType.APPLICATION_JSON)
-				.body(BodyInserters.fromPublisher(Mono.just(opportunity), Opportunity.class))
+				.body(BodyInserters.fromPublisher(Mono.just(offer), SalesOffer.class))
 				.retrieve()
-				.bodyToMono(Opportunity.class)
+				.bodyToMono(SalesOffer.class)
 				.block();
 	}
 	
-	private List<Opportunity> initializer(String file) {
-		TypeReference<List<Opportunity>> typeReference = new TypeReference<List<Opportunity>>() {};
+	private List<SalesOffer> initOffers(String file) {
+		TypeReference<List<SalesOffer>> typeReference = new TypeReference<List<SalesOffer>>() {};
 		InputStream inputStream = TypeReference.class.getResourceAsStream(file);
 		try {
 			return mapper.readValue(inputStream, typeReference);

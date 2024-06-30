@@ -20,17 +20,17 @@ import mmk.omak.repostory.UserRepository;
 @RequiredArgsConstructor
 public class SalesOrderService {
 	
-	private final SalesOrderRepository salesOrderRepo;
+	private final SalesOrderRepository orderRepo;
 	private final UserRepository userRepo;
 	private final LineRepository lineRepo;
 	private final ExcelGenerator excelGenerator;
 	
-	public SalesOrder getById(Long id) {
-		return salesOrderRepo.findById(id).orElseThrow(() -> new BadRequestException("SalesOrder with id " +id+ " not found."));
+	public SalesOrder getById(int id) {
+		return orderRepo.findById(id).orElseThrow(() -> new BadRequestException("SalesOrder with id " +id+ " not found."));
 	}
 	
 	public List<SalesOrder> getAll() {
-		return salesOrderRepo.findAll();
+		return orderRepo.findAll();
 	}
 	
 	@Transactional
@@ -51,12 +51,12 @@ public class SalesOrderService {
 		order.setSalesman(salesMan);
 		
 		order.setDateCreated(LocalDateTime.now());
-		order = salesOrderRepo.save(order);
+		order = orderRepo.save(order);
 		
 		return calculate(order);
 	}
 	
-	public void excelOffer(HttpServletResponse response, long oderId) {
+	public void excelOffer(HttpServletResponse response, int oderId) {
 		excelGenerator.excelOffer(response, getById(oderId));
 	}
 	
@@ -64,7 +64,7 @@ public class SalesOrderService {
 	public SalesOrder update(SalesOrder reqOrder) {
 		var order = getById(reqOrder.getId());
 		order.update(reqOrder);
-		order = salesOrderRepo.save(order);
+		order = orderRepo.save(order);
 		
 		return calculate(order);
 	}

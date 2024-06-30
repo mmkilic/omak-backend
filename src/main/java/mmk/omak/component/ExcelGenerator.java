@@ -1,5 +1,7 @@
 package mmk.omak.component;
 
+import java.time.format.DateTimeFormatter;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
@@ -12,6 +14,8 @@ import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import mmk.omak.entity.Line;
+import mmk.omak.entity.Sales;
+import mmk.omak.entity.SalesOffer;
 import mmk.omak.entity.SalesOrder;
 
 @Component
@@ -39,11 +43,14 @@ public class ExcelGenerator {
 		CellStyle style = row.getCell(3).getCellStyle();
 		
 		createCell(sheet, style, row, 3, order.getCustomer().getName());
-		createCell(sheet, style, row, 13, order.getDateCreated().toString());
+		createCell(sheet, style, row, 13, order.getDateCreated().format(DateTimeFormatter.ISO_LOCAL_DATE));
 		
 		row = sheet.getRow(16);
-		createCell(sheet, style, row, 3, order.getCustomer().getContacts().stream().filter(c -> c.isKeyContact()).findFirst().get().getName());
+		createCell(sheet, style, row, 3, order.getContact().getFullName());
 		createCell(sheet, style, row, 13, order.getId());
+		
+		row = sheet.getRow(18);
+		createCell(sheet, style, row, 13, order.getCustomer().getId());
 		
 		row = sheet.getRow(56);
 		style = row.getCell(9).getCellStyle();
@@ -54,18 +61,18 @@ public class ExcelGenerator {
 		createCell(sheet, style, row, 9, order.getSalesman().getPhoneNumber());
 		
 		int rowCount = 105;
-		style = sheet.getRow(105).getCell(9).getCellStyle();
+		style = sheet.getRow(rowCount).getCell(3).getCellStyle();
 		for (Line line : order.getOrderlines()) {
-			row = sheet.getRow(rowCount++);
-			createCell(sheet, style, row, 1, "-");
-			createCell(sheet, style, row, 2, "-");
-			createCell(sheet, style, row, 3, line.getProductCode());
-			createCell(sheet, style, row, 4, line.getProductDescription());
-			createCell(sheet, style, row, 5, String.valueOf(line.getQuantity()));
-			createCell(sheet, style, row, 6, "-");
-			createCell(sheet, style, row, 7, String.valueOf(line.getUnitPrice()));
-			createCell(sheet, style, row, 8, String.valueOf(line.getTotalPrice()));
-			createCell(sheet, style, row, 9, line.getDuration());
+			row = sheet.getRow(rowCount);
+			createCell(sheet, style, row, 1, line.getProductCode());
+			createCell(sheet, style, row, 2, line.getProductBrand().getName());
+			createCell(sheet, style, row, 3, line.getProductDescription());
+			createCell(sheet, style, row, 10, String.valueOf(line.getQuantity()));
+			createCell(sheet, style, row, 11, line.getCurrency().getCode());
+			createCell(sheet, style, row, 12, String.valueOf(line.getUnitPrice()));
+			createCell(sheet, style, row, 13, String.valueOf(line.getTotalPrice()));
+			createCell(sheet, style, row, 14, line.getDuration());
+			style = sheet.getRow(rowCount++).getCell(3).getCellStyle();
 		}
 	}
 	

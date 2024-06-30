@@ -31,7 +31,7 @@ public class SalesOrderController {
 	private final JwtService jwtService;
 	
 	@GetMapping("/{id}")
-	public SalesOrder getById(@PathVariable long id) {
+	public SalesOrder getById(@PathVariable int id) {
 		return salesOrderService.getById(id);
 	}
 	
@@ -48,7 +48,7 @@ public class SalesOrderController {
 	}
 	
 	@PostMapping("/excel")
-	public void excelExportAllUsers(HttpServletResponse response, @RequestParam long oderId) {
+	public void excelExportAllUsers(HttpServletResponse response, @RequestParam int oderId) {
 		response.setContentType("application/octet-stream");
 		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
 		String currentDateTime = dateFormatter.format(new Date());

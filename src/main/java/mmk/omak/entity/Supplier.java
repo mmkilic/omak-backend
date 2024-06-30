@@ -45,14 +45,6 @@ public class Supplier {
 	@OneToMany(mappedBy = "supplier")
 	private List<Contact> contacts = new ArrayList<Contact>();
 	
-	/*
-	@JsonIgnore
-	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-	@JoinTable(name = "product_supplier_join", 
-			  joinColumns = @JoinColumn(name = "supplier_id"), 
-			  inverseJoinColumns = @JoinColumn(name = "product_id"))
-	private List<Product> products = new ArrayList<Product>();
-	*/
 	@JsonIgnore
 	@ManyToMany(mappedBy = "suppliers")
 	private List<Product> products = new ArrayList<Product>();

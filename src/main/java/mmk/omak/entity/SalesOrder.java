@@ -7,42 +7,40 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
+import mmk.omak.utility.CustomId;
 
 @Entity
 @Table
 @Data
-public class SalesOrder {
+public class SalesOrder{
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	@CustomId(initialNum = 1000, tableName = "sales_order_custom_id")
+	private int id;
 	private double taxRate;
 	private double taxAmount;
 	private double amount;
 	private double totalAmount;
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime dateCreated;
+	private int salesOfferId;
 	
-	
-	@ManyToOne
-	private Opportunity opportunity;
 	@ManyToOne
 	private Currency currency;
 	@ManyToOne
 	private Customer customer;
+	@ManyToOne
+	private Contact contact;
 	@ManyToOne
 	private User salesman;
 	
 	
 	@OneToMany(mappedBy = "salesOrder")
 	private List<Line> orderlines = new ArrayList<Line>();
-	
 	
 	public SalesOrder update(SalesOrder o) {
 		this.taxRate = o.taxRate;

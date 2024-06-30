@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import mmk.omak.entity.SalesOrder;
 
 @Repository
-public interface SalesOrderRepository extends JpaRepository<SalesOrder, Long>{
+public interface SalesOrderRepository extends JpaRepository<SalesOrder, Integer>{
 	
 }

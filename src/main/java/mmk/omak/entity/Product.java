@@ -45,12 +45,7 @@ public class Product {
 	@ManyToOne
 	private Currency currency;
 	
-	/*
-	@ManyToMany(mappedBy = "products")
-	private List<Supplier> suppliers = new ArrayList<Supplier>();
-	@ManyToMany(mappedBy = "products")
-	private List<ProductBrand> brands = new ArrayList<ProductBrand>();
-	*/
+	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
 	@JoinTable(name = "product_supplier_join", 
 			  joinColumns = @JoinColumn(name = "product_id"), 

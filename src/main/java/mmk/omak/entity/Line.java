@@ -47,7 +47,7 @@ public class Line {
 	private SalesOrder salesOrder;
 	@JsonIgnore
 	@ManyToOne
-	private Offer offer;
+	private SalesOffer salesOffer;
 	
 	
 	public double getTotalPrice() {

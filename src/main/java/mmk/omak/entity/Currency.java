@@ -30,7 +30,7 @@ public class Currency {
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "currency")
-	private List<Offer> offers = new ArrayList<Offer>();
+	private List<SalesOffer> salesOffers = new ArrayList<SalesOffer>();
 	@JsonIgnore
 	@OneToMany(mappedBy = "currency")
 	private List<SalesOrder> salesOrders = new ArrayList<SalesOrder>();

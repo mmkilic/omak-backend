@@ -2,6 +2,7 @@
 {
     "taxRate":0.18,
     "customer":{"id":1001},
+    "contact":{"id":1},
     "currency":{"id":1},
     "offerlines":[
     	{
@@ -27,9 +28,9 @@
 	]
 },
 {
-	"opportunity":{"id":1},
 	"taxRate":0.18,
     "customer":{"id":1002},
+    "contact":{"id":2},
     "currency":{"id":1},
     "offerlines":[
     	{
