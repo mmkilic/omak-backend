@@ -1,10 +1,16 @@
 package mmk.omak.entity;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -24,11 +30,13 @@ public class SalesOffer{
 	@Id
 	@CustomId(initialNum = 5000, tableName = "sales_offer_custom_id")
 	private int id;
-	private double amount;
 	private double taxRate;
 	@Enumerated(EnumType.STRING)
 	private OfferStatus status;
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+	//@JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	private LocalDateTime dateCreated;
 	
 	
@@ -44,19 +52,22 @@ public class SalesOffer{
 	
 	
 	@OneToMany(mappedBy = "salesOffer")
-	private List<Line> offerlines = new ArrayList<Line>();
+	private List<OfferLine> offerLines = new ArrayList<OfferLine>();
 	
-	public double getTaxtAmount() {
-		return amount * taxRate;
+	public double getAmount() {
+		BigDecimal sum = BigDecimal.ZERO;
+		
+		for (OfferLine l : offerLines) {
+			sum = sum.add(BigDecimal.valueOf(l.getTotalPrice()));
+		}
+		
+		return sum.doubleValue();
+	}
+	public double getTaxAmount() {
+		return BigDecimal.valueOf(getAmount()).multiply(BigDecimal.valueOf(taxRate)).doubleValue();
 	}
 	public double getTotalAmount() {
-		return amount + getTaxtAmount();
+		return BigDecimal.valueOf(getAmount()).add(BigDecimal.valueOf(getTaxAmount())).doubleValue();
 	}
 	
-	public SalesOffer update(SalesOffer o) {
-		this.taxRate = o.taxRate;
-		this.currency = o.currency != null ? o.currency : this.currency;
-		this.customer = o.customer != null ? o.customer : this.customer;
-		return this;
-	}
 }

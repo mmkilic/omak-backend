@@ -22,10 +22,7 @@ public class SalesOrder{
 	@CustomId(initialNum = 1000, tableName = "sales_order_custom_id")
 	private int id;
 	private double taxRate;
-	private double taxAmount;
-	private double amount;
-	private double totalAmount;
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	private LocalDateTime dateCreated;
 	private int salesOfferId;
 	
@@ -40,7 +37,7 @@ public class SalesOrder{
 	
 	
 	@OneToMany(mappedBy = "salesOrder")
-	private List<Line> orderlines = new ArrayList<Line>();
+	private List<OrderLine> orderLines = new ArrayList<OrderLine>();
 	
 	public SalesOrder update(SalesOrder o) {
 		this.taxRate = o.taxRate;
@@ -49,16 +46,25 @@ public class SalesOrder{
 		return this;
 	}
 	
+	public double getAmount() {
+		return orderLines.stream().mapToDouble(OrderLine::getTotalPrice).sum();
+	}
+	public double getTaxAmount() {
+		return getAmount() * taxRate;
+	}
+	public double getTotalAmount() {
+		return getAmount() + getTaxAmount();
+	}
 	
 	public double getDeliveryPercentage() {
-		if(orderlines == null || orderlines.isEmpty())
+		if(orderLines == null || orderLines.isEmpty())
 			return 0;
-		return Math.round(100.0 * orderlines.stream().mapToInt(o -> o.getDeliveryStatus().getValue()).sum() / (double) orderlines.size());
+		return Math.round(100.0 * orderLines.stream().mapToInt(o -> o.getDeliveryStatus().getValue()).sum() / (double) orderLines.size());
 	}
 	
 	public double getRecievingPercentage() {
-		if(orderlines == null || orderlines.isEmpty())
+		if(orderLines == null || orderLines.isEmpty())
 			return 0;
-		return Math.round(100.0 * orderlines.stream().mapToInt(o -> o.getReceivingStatus().getValue()).sum() / (double) orderlines.size());
+		return Math.round(100.0 * orderLines.stream().mapToInt(o -> o.getReceivingStatus().getValue()).sum() / (double) orderLines.size());
 	}
 }

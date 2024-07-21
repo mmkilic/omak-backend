@@ -35,7 +35,7 @@ public class Contact {
 	private String phoneNumber;
 	@Enumerated(EnumType.STRING)
 	private ContactTypes type;
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	private LocalDateTime dateCreated;
 	private boolean keyContact;
 	private String note;

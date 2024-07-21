@@ -36,9 +36,6 @@ public class Currency {
 	private List<SalesOrder> salesOrders = new ArrayList<SalesOrder>();
 	@JsonIgnore
 	@OneToMany(mappedBy = "currency")
-	private List<Line> lines = new ArrayList<Line>();
-	@JsonIgnore
-	@OneToMany(mappedBy = "currency")
 	private List<Product> products = new ArrayList<Product>();
 	
 	

@@ -1,6 +1,6 @@
 package mmk.omak.enums;
 
-public enum ProductUnit {
+public enum ProductUnits {
 
 	NONE("Hiçbiri"),
 	QUANTITY("Adet"),
@@ -9,11 +9,11 @@ public enum ProductUnit {
 	
 	private final String DATA;
 	
-	private ProductUnit(String data) {
+	private ProductUnits(String data) {
 		this.DATA = data;
 	}
 	
-	public String getCode() {
+	public String getData() {
 		return this.DATA;
 	}
 	

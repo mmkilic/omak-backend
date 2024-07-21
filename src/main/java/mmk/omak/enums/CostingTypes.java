@@ -1,14 +1,13 @@
 package mmk.omak.enums;
 
-public enum ContactTypes {
+public enum CostingTypes {
 
-	NONE("None"),
-	CUSTOMER("Customer"),
-	SUPPLIER("Supplier");
+	INDIVIDUAL_PRICE("Tekil Fiyat"),
+	LIST_PRICE("Liste Fiyatı");
 	
 	private final String DATA;
 	
-	private ContactTypes(String data) {
+	private CostingTypes(String data) {
 		this.DATA = data;
 	}
 	

@@ -23,9 +23,13 @@ public class ProductBrand {
 	private int id;
 	private String name;
 	
-	
+	@JsonIgnore
 	@OneToMany(mappedBy = "productBrand")
-	private List<Line> lines = new ArrayList<Line>();
+	private List<OfferLine> offerLines = new ArrayList<OfferLine>();
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "productBrand")
+	private List<OrderLine> orderLines = new ArrayList<OrderLine>();
 	
 	
 	@JsonIgnore

@@ -5,14 +5,12 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import mmk.omak.component.ExcelGenerator;
-import mmk.omak.entity.Line;
+import mmk.omak.entity.OrderLine;
 import mmk.omak.entity.SalesOrder;
 import mmk.omak.exception.BadRequestException;
-import mmk.omak.repostory.LineRepository;
+import mmk.omak.repostory.OrderLineRepository;
 import mmk.omak.repostory.SalesOrderRepository;
 import mmk.omak.repostory.UserRepository;
 
@@ -22,8 +20,7 @@ public class SalesOrderService {
 	
 	private final SalesOrderRepository orderRepo;
 	private final UserRepository userRepo;
-	private final LineRepository lineRepo;
-	private final ExcelGenerator excelGenerator;
+	private final OrderLineRepository lineRepo;
 	
 	public SalesOrder getById(int id) {
 		return orderRepo.findById(id).orElseThrow(() -> new BadRequestException("SalesOrder with id " +id+ " not found."));
@@ -38,7 +35,7 @@ public class SalesOrderService {
 		if(order.getId() > 0)
 			throw new BadRequestException("This service is only used for new records");
 		
-		if(order.getOrderlines().isEmpty())
+		if(order.getOrderLines().isEmpty())
 			throw new BadRequestException("Minimum bir satır olması gerekekiyor.");
 		
 		if(order.getCustomer() == null)
@@ -53,11 +50,12 @@ public class SalesOrderService {
 		order.setDateCreated(LocalDateTime.now());
 		order = orderRepo.save(order);
 		
-		return calculate(order);
-	}
-	
-	public void excelOffer(HttpServletResponse response, int oderId) {
-		excelGenerator.excelOffer(response, getById(oderId));
+		for (OrderLine line : order.getOrderLines()) {
+			line.setSalesOrder(order);
+			lineRepo.save(line);
+		}
+		
+		return order;
 	}
 	
 	@Transactional
@@ -66,18 +64,12 @@ public class SalesOrderService {
 		order.update(reqOrder);
 		order = orderRepo.save(order);
 		
-		return calculate(order);
-	}
-	
-	private SalesOrder calculate(SalesOrder order) {
-		double salesAmount = 0;
-		for (Line line : order.getOrderlines()) {
-			salesAmount += line.getTotalPrice();
-			line.setCurrency(order.getCurrency());
+		for (OrderLine line : order.getOrderLines()) {
 			line.setSalesOrder(order);
 			lineRepo.save(line);
 		}
-		order.setAmount(salesAmount);
+		
 		return order;
 	}
+	
 }

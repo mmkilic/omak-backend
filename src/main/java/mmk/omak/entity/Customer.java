@@ -31,7 +31,7 @@ public class Customer {
 	private String email;
 	private String phoneNumber;
 	
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	private LocalDateTime dateCreated;
 	
 	private String address;

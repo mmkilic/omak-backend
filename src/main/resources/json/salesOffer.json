@@ -4,26 +4,26 @@
     "customer":{"id":1001},
     "contact":{"id":1},
     "currency":{"id":1},
-    "offerlines":[
+    "offerLines":[
     	{
     		"productCode":"asd",
     		"productDescription":"asd",
-    		"currency":{"id":1},
     		"productBrand":{"id":1},
     		"quantity":3,
-    		"unitPrice":32,
     		"duration":"5 Weeks",
-    		"purchasePrice":20.5
+    		"purchasingCost":26,
+    		"costingType":"INDIVIDUAL_PRICE",
+    		"factor":1.6
     	},
     	{
     		"productCode":"qwe",
     		"productDescription":"qwe",
-    		"currency":{"id":1},
     		"productBrand":{"id":2},
-    		"quantity":2,
-    		"unitPrice":44,
+    		"quantity":6,
     		"duration":"6 Weeks",
-    		"purchasePrice":30.5
+    		"purchasingCost":18,
+    		"costingType":"LIST_PRICE",
+    		"factor":1.2
     	}
 	]
 },
@@ -32,24 +32,24 @@
     "customer":{"id":1002},
     "contact":{"id":2},
     "currency":{"id":1},
-    "offerlines":[
+    "offerLines":[
     	{
-    		"productCode":"ASD1",
+    		"productCode":"hjk",
     		"productDescription":"piston",
-    		"quantity":3,
-    		"unitPrice":32,
-    		"duration":"5 Weeks",
-    		"purchasePrice":20.5,
-    		"productBrand":{"id":1}
+    		"quantity":1,
+    		"duration":"4 Weeks",
+    		"purchasingCost":45,
+    		"costingType":"LIST_PRICE",
+    		"factor":1.7
     	},
     	{
-    		"productCode":"ASD2",
+    		"productCode":"hjk2",
     		"productDescription":"shaft",
-    		"quantity":2,
-    		"unitPrice":44,
+    		"quantity":11,
     		"duration":"6 Weeks",
-    		"purchasePrice":30.5,
-    		"productBrand":{"id":2}
+    		"purchasingCost":14,
+    		"costingType":"LIST_PRICE",
+    		"factor":1.1
     	}
 	]
 }

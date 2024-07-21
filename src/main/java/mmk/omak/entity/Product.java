@@ -21,7 +21,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
-import mmk.omak.enums.ProductUnit;
+import mmk.omak.enums.ProductUnits;
 
 @Entity
 @Table
@@ -35,8 +35,8 @@ public class Product {
 	private String name;
 	private double listPrice;
 	@Enumerated(EnumType.STRING)
-	private ProductUnit unit;
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+	private ProductUnits unit;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	private LocalDateTime dateCreated;
 	
 	

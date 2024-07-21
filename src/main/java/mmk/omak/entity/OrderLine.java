@@ -1,5 +1,7 @@
 package mmk.omak.entity;
 
+import java.math.BigDecimal;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
@@ -11,46 +13,43 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
+import mmk.omak.enums.CostingTypes;
 import mmk.omak.enums.DeliveryStatus;
 import mmk.omak.enums.ReceivingStatus;
 
 @Entity
 @Table
 @Data
-public class Line {
+public class OrderLine {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private String productCode;
 	private String productDescription;
-	private byte[] productImage;
 	private double quantity;
-	private double unitPrice;
 	private String duration;
-	private double listPrice;
-	private double purchasePrice;
+	private double purchasingCost;
+	@Enumerated(EnumType.STRING)
+	private CostingTypes costingType;
 	private double factor;
 	
-	
 	@Enumerated(EnumType.STRING)
-	private DeliveryStatus deliveryStatus;
+	private DeliveryStatus deliveryStatus = DeliveryStatus.ONGOING;
 	@Enumerated(EnumType.STRING)
-	private ReceivingStatus receivingStatus;
+	private ReceivingStatus receivingStatus = ReceivingStatus.ONGOING;
 	
 	
 	@ManyToOne
 	private ProductBrand productBrand;
-	@ManyToOne
-	private Currency currency;
 	@JsonIgnore
 	@ManyToOne
 	private SalesOrder salesOrder;
-	@JsonIgnore
-	@ManyToOne
-	private SalesOffer salesOffer;
 	
 	
+	public double getUnitPrice() {
+		return BigDecimal.valueOf(factor).multiply(BigDecimal.valueOf(purchasingCost)).doubleValue();
+	}
 	public double getTotalPrice() {
-		return quantity * unitPrice;
+		return BigDecimal.valueOf(quantity).multiply(BigDecimal.valueOf(getUnitPrice())).doubleValue();
 	}
 }

@@ -15,7 +15,7 @@ public enum DeliveryStatus {
 		this.VALUE = value;
 	}
 	
-	public String getCode() {
+	public String getData() {
 		return this.DATA;
 	}
 	public int getValue() {

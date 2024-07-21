@@ -5,14 +5,16 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import mmk.omak.entity.Line;
+import mmk.omak.component.ExcelGenerator;
+import mmk.omak.entity.OfferLine;
 import mmk.omak.entity.SalesOffer;
 import mmk.omak.entity.SalesOrder;
 import mmk.omak.enums.OfferStatus;
 import mmk.omak.exception.BadRequestException;
-import mmk.omak.repostory.LineRepository;
+import mmk.omak.repostory.OfferLineRepository;
 import mmk.omak.repostory.SalesOfferRepository;
 import mmk.omak.repostory.UserRepository;
 
@@ -22,7 +24,8 @@ public class SalesOfferService {
 	
 	private final SalesOfferRepository offerRepo;
 	private final UserRepository userRepo;
-	private final LineRepository lineRepo;
+	private final OfferLineRepository lineRepo;
+	private final ExcelGenerator excelGenerator;
 	
 	public SalesOffer getById(int id) {
 		return offerRepo.findById(id).orElseThrow(() -> new BadRequestException("Currency with id " +id+ " not found."));
@@ -37,7 +40,7 @@ public class SalesOfferService {
 		if(offer.getId() > 0)
 			throw new BadRequestException("This service is only used for new records");
 		
-		if(offer.getOfferlines().isEmpty())
+		if(offer.getOfferLines().isEmpty())
 			throw new BadRequestException("Minimum bir satır olması gerekekiyor.");
 		
 		if(offer.getCustomer() == null)
@@ -53,42 +56,55 @@ public class SalesOfferService {
 		offer.setStatus(OfferStatus.OPEN);
 		offer = offerRepo.save(offer);
 		
-		return calculate(offer);
-	}
-	
-	@Transactional
-	public SalesOffer update(SalesOffer reqOffer) {
-		var offer = getById(reqOffer.getId());
-		
-		offer.setStatus(OfferStatus.REVIZED);
-		offer.update(reqOffer);
-		offer = offerRepo.save(offer);
-		
-		return calculate(offer);
-	}
-	
-	public SalesOrder convertToOrder(SalesOffer reqOffer) {
-		var offer = getById(reqOffer.getId());
-		offer.setStatus(OfferStatus.ORDERED);
-		offer = offerRepo.save(offer);
-		return null;
-	}
-	
-	public SalesOffer canceled(SalesOffer reqOffer) {
-		var offer = getById(reqOffer.getId());
-		offer.setStatus(OfferStatus.CANCELED);
-		return offerRepo.save(offer);
-	}
-	
-	private SalesOffer calculate(SalesOffer offer) {
-		double salesAmount = 0;
-		for (Line line : offer.getOfferlines()) {
-			salesAmount += line.getTotalPrice();
-			line.setCurrency(offer.getCurrency());
+		for (OfferLine line : offer.getOfferLines()) {
 			line.setSalesOffer(offer);
 			lineRepo.save(line);
 		}
-		offer.setAmount(salesAmount);
+		
 		return offer;
+	}
+	
+	public void excelOffer(HttpServletResponse response, int oderId) {
+		excelGenerator.excelOffer(response, getById(oderId));
+	}
+	
+	@Transactional
+	public SalesOffer update(SalesOffer theOffer) {
+		var dbOffer = getById(theOffer.getId());
+		
+		for (OfferLine line : dbOffer.getOfferLines()) {
+			if(!theOffer.getOfferLines().stream().anyMatch(l -> l.getId() == line.getId()))
+				lineRepo.delete(line);
+		}
+		
+		for (OfferLine line : theOffer.getOfferLines()) {
+			line.setSalesOffer(theOffer);
+			lineRepo.save(line);
+		}
+		
+		theOffer.setStatus(OfferStatus.REVIZED);
+		theOffer = offerRepo.save(theOffer);
+		return dbOffer;
+	}
+	
+	public SalesOrder offerToOrder(int offerId) {
+		var offer = getById(offerId);
+		offer.setStatus(OfferStatus.ORDERED);
+		var order = new SalesOrder();
+		order.setContact(offer.getContact());
+		order.setCurrency(offer.getCurrency());
+		order.setCustomer(offer.getCustomer());
+		order.setSalesman(offer.getSalesman());
+		order.setSalesOfferId(offerId);
+		order.setTaxRate(offer.getTaxRate());
+		//order.getOrderLines().add(null);
+		offer = offerRepo.save(offer);
+		return order;
+	}
+	
+	public SalesOffer cancel(int offerId) {
+		var offer = getById(offerId);
+		offer.setStatus(OfferStatus.CANCELED);
+		return offerRepo.save(offer);
 	}
 }

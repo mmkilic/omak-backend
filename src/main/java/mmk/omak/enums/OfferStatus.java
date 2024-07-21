@@ -2,7 +2,6 @@ package mmk.omak.enums;
 
 public enum OfferStatus {
 
-	NONE("Hiçbiri"),
 	OPEN("Açık"),
 	REVIZED("Revize"),
 	ORDERED("Sipariş Oldu"),
@@ -14,7 +13,7 @@ public enum OfferStatus {
 		this.DATA = data;
 	}
 	
-	public String getCode() {
+	public String getData() {
 		return this.DATA;
 	}
 	
