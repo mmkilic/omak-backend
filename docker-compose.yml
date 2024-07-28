@@ -5,9 +5,5 @@ services:
     container_name: c_crm_backend
     image: crm_backend
     restart: always
-    networks:
-      - net-crm
-      
-networks:
-  net-crm:
-    name: net-crm
+    ports:
+      - 8080:8080

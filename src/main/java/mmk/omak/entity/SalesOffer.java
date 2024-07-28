@@ -56,15 +56,13 @@ public class SalesOffer{
 	
 	public double getAmount() {
 		BigDecimal sum = BigDecimal.ZERO;
-		
 		for (OfferLine l : offerLines) {
 			sum = sum.add(BigDecimal.valueOf(l.getTotalPrice()));
 		}
-		
 		return sum.doubleValue();
 	}
 	public double getTaxAmount() {
-		return BigDecimal.valueOf(getAmount()).multiply(BigDecimal.valueOf(taxRate)).doubleValue();
+		return BigDecimal.valueOf(getAmount()).multiply(BigDecimal.valueOf(taxRate/100.0)).doubleValue();
 	}
 	public double getTotalAmount() {
 		return BigDecimal.valueOf(getAmount()).add(BigDecimal.valueOf(getTaxAmount())).doubleValue();

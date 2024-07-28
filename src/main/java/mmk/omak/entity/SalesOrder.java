@@ -1,5 +1,6 @@
 package mmk.omak.entity;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,13 +48,17 @@ public class SalesOrder{
 	}
 	
 	public double getAmount() {
-		return orderLines.stream().mapToDouble(OrderLine::getTotalPrice).sum();
+		BigDecimal sum = BigDecimal.ZERO;
+		for (OrderLine l : orderLines) {
+			sum = sum.add(BigDecimal.valueOf(l.getTotalPrice()));
+		}
+		return sum.doubleValue();
 	}
 	public double getTaxAmount() {
-		return getAmount() * taxRate;
+		return BigDecimal.valueOf(getAmount()).multiply(BigDecimal.valueOf(taxRate/100.0)).doubleValue();
 	}
 	public double getTotalAmount() {
-		return getAmount() + getTaxAmount();
+		return BigDecimal.valueOf(getAmount()).add(BigDecimal.valueOf(getTaxAmount())).doubleValue();
 	}
 	
 	public double getDeliveryPercentage() {
